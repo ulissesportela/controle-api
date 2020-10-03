@@ -1,4 +1,4 @@
-package com.cobras.controleapi;
+package com.cobras.controle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

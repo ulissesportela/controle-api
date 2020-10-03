@@ -6,7 +6,7 @@ This project depicts the Spring Boot Example with Spring Data JPA with Hibernate
 
 ## Description
 This Project shows the list of Users which are stored in the H2 Database. Using the following endpoints, different operations can be achieved:
-- `/rest/users/all` - This returns the list of Users in the Users table which is created in H2 Table (users)
+- `/usuarios` - This returns the list of Users in the Users table which is created in H2 Table (users)
 - `/rest/users/{name}` - This returns the details of the Users passed in URL
 - `/rest/id/{id}` - This returns the details of the Users for the user Id passed in URL
 - `/rest/update/{id}/{name}` - This updates the name of the user for the userId passed in the URL
@@ -14,6 +14,7 @@ This Project shows the list of Users which are stored in the H2 Database. Using 
 ## Libraries used
 - Spring Boot
 - Spring MVC (Spring Web)
+- Lombok
 - Spring Data JPA with Hibernate
 - H2
 
