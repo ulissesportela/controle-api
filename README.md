@@ -1,11 +1,10 @@
 # controle-api
 Projeto de estudo em spring rest, com controle de acesso de usuários
 
-# Spring Data JPA with Hibernate using H2 Example
-This project depicts the Spring Boot Example with Spring Data JPA with Hibernate using H2 Example.
+# API rest Spring Data JPA com Hibernate, Banco H2 em memória
 
 ## Description
-This Project shows the list of Users which are stored in the H2 Database. Using the following endpoints, different operations can be achieved:
+Esse projeto inicia como controle de acesso e cadastro de usuários perfis e unidades no banco de dados H2 executado em memória. Usando os seguintes endpoints, diferentes operações podem ser realizadas:
 - `/usuarios` - This returns the list of Users in the Users table which is created in H2 Table (users)
 - `/rest/users/{name}` - This returns the details of the Users passed in URL
 - `/rest/id/{id}` - This returns the details of the Users for the user Id passed in URL
