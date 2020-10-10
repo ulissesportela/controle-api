@@ -1,13 +1,10 @@
-
 CREATE SEQUENCE public.seq_pss;
 
 CREATE TABLE public.PSS (
                 NR_PSS NUMERIC(8) NOT NULL DEFAULT nextval('public.seq_pss'),
                 TX_NM_PSS VARCHAR(60) NOT NULL,
                 TX_CPF_PSS VARCHAR(11) NOT NULL,
-                TX_REG_GRL_PSS VARCHAR(9) NOT NULL,
                 TX_TCEL_PSS VARCHAR(11) NOT NULL,
-                TX_TEL_CML_PSS VARCHAR(11),
                 TX_EMAI_PSS VARCHAR(30),
                 DT_HH_CAD_PSS TIMESTAMP NOT NULL,
                 CONSTRAINT nr_pss PRIMARY KEY (NR_PSS)
@@ -16,9 +13,7 @@ COMMENT ON TABLE public.PSS IS 'Tabela com o cadastro das pessoas';
 COMMENT ON COLUMN public.PSS.NR_PSS IS 'PK tabela pessoa';
 COMMENT ON COLUMN public.PSS.TX_NM_PSS IS 'Nome da Pessoa';
 COMMENT ON COLUMN public.PSS.TX_CPF_PSS IS 'Cpf da Pessoa';
-COMMENT ON COLUMN public.PSS.TX_REG_GRL_PSS IS 'Rg da pessoa';
 COMMENT ON COLUMN public.PSS.TX_TCEL_PSS IS 'telefone celular da pessoa';
-COMMENT ON COLUMN public.PSS.TX_TEL_CML_PSS IS 'Telefone comercial da pessoa';
 COMMENT ON COLUMN public.PSS.TX_EMAI_PSS IS 'Email da pessoa';
 COMMENT ON COLUMN public.PSS.DT_HH_CAD_PSS IS 'Data hora cadastro pessoa';
 
@@ -28,13 +23,13 @@ ALTER SEQUENCE public.seq_pss OWNED BY public.PSS.NR_PSS;
 CREATE SEQUENCE public.seq_und;
 
 CREATE TABLE public.UND (
-                NR_UND NUMERIC(5) NOT NULL DEFAULT nextval('public.seq_und'),
+                NR_UND NUMERIC(4) NOT NULL DEFAULT nextval('public.seq_und'),
                 TX_NM_UND VARCHAR(50) NOT NULL,
                 CD_UND VARCHAR(4) NOT NULL,
                 CONSTRAINT nr_und PRIMARY KEY (NR_UND)
 );
 COMMENT ON TABLE public.UND IS 'Tabela com o cadastro das Unidades';
-COMMENT ON COLUMN public.UND.NR_UND IS 'PK tabela Unidade';
+COMMENT ON COLUMN public.UND.NR_UND IS 'PK Tabela Unidade';
 COMMENT ON COLUMN public.UND.TX_NM_UND IS 'Nome da Unidade';
 COMMENT ON COLUMN public.UND.CD_UND IS 'Código da unidade';
 
@@ -44,7 +39,7 @@ ALTER SEQUENCE public.seq_und OWNED BY public.UND.NR_UND;
 CREATE SEQUENCE public.seq_usu_sis;
 
 CREATE TABLE public.USU_SIS (
-                NR_USU_SIS NUMERIC(5) NOT NULL DEFAULT nextval('public.seq_usu_sis'),
+                NR_USU_SIS NUMERIC(6) NOT NULL DEFAULT nextval('public.seq_usu_sis'),
                 TX_SNH_USU_SIS VARCHAR(10) NOT NULL,
                 IN_USU_SIS_ATI CHAR(1) DEFAULT 1 NOT NULL,
                 CD_CHV_SSBB VARCHAR(8),
@@ -67,7 +62,6 @@ CREATE TABLE public.MENU (
                 NR_MENU NUMERIC(3) NOT NULL DEFAULT nextval('public.seq_menu'),
                 TX_DCR_MENU VARCHAR(30) NOT NULL,
                 IN_SIS_MENU CHAR(1) NOT NULL,
-                NR_MENU_PAI NUMERIC(3),
                 CONSTRAINT nr_menu PRIMARY KEY (NR_MENU)
 );
 COMMENT ON TABLE public.MENU IS 'Cadastro de menus do sistema';
@@ -75,7 +69,6 @@ COMMENT ON COLUMN public.MENU.NR_MENU IS 'Pk tabela Menu';
 COMMENT ON COLUMN public.MENU.TX_DCR_MENU IS 'Descrição menu';
 COMMENT ON COLUMN public.MENU.IN_SIS_MENU IS 'W=Web
 M=Mobile';
-COMMENT ON COLUMN public.MENU.NR_MENU_PAI IS 'FK tabela Menu';
 
 
 ALTER SEQUENCE public.seq_menu OWNED BY public.MENU.NR_MENU;
@@ -112,21 +105,21 @@ ALTER SEQUENCE public.seq_prfl_menu OWNED BY public.PRFL_MENU.NR_PRFL_MENU;
 
 CREATE SEQUENCE public.seq_prfl_und_usu;
 
-CREATE TABLE public.PRFL_UND_USU (
-                NR_PRFL_UND_USU NUMERIC(4) NOT NULL DEFAULT nextval('public.seq_prfl_und_usu'),
+CREATE TABLE public.PRFL_UND_USU_SIS (
+                NR_PRFL_UND_USU_SIS NUMERIC(6) NOT NULL DEFAULT nextval('public.seq_prfl_und_usu'),
                 NR_PRFL NUMERIC(4) NOT NULL,
-                NR_UND NUMERIC(5) NOT NULL,
-                NR_USU_SIS NUMERIC(5) NOT NULL,
-                CONSTRAINT nr_prfl_und_usu PRIMARY KEY (NR_PRFL_UND_USU)
+                NR_USU_SIS NUMERIC(6) NOT NULL,
+                NR_UND NUMERIC(4) NOT NULL,
+                CONSTRAINT nr_prfl_und_usu_sis PRIMARY KEY (NR_PRFL_UND_USU_SIS)
 );
-COMMENT ON TABLE public.PRFL_UND_USU IS 'Tabela de vinculo entre usuário perfil e unidade';
-COMMENT ON COLUMN public.PRFL_UND_USU.NR_PRFL_UND_USU IS 'PK tabela Perfil Unidade Usuário';
-COMMENT ON COLUMN public.PRFL_UND_USU.NR_PRFL IS 'FK tabela Perfil';
-COMMENT ON COLUMN public.PRFL_UND_USU.NR_UND IS 'FK tabela Unidade';
-COMMENT ON COLUMN public.PRFL_UND_USU.NR_USU_SIS IS 'FK tabela Usuario Sistema';
+COMMENT ON TABLE public.PRFL_UND_USU_SIS IS 'Tabela de vinculo entre usuário sistema, perfil e unidade';
+COMMENT ON COLUMN public.PRFL_UND_USU_SIS.NR_PRFL_UND_USU_SIS IS 'PK tabela Perfil Unidade Usuário Sistema';
+COMMENT ON COLUMN public.PRFL_UND_USU_SIS.NR_PRFL IS 'FK tabela Perfil';
+COMMENT ON COLUMN public.PRFL_UND_USU_SIS.NR_USU_SIS IS 'FK tabela Usuario Sistema';
+COMMENT ON COLUMN public.PRFL_UND_USU_SIS.NR_UND IS 'PK Tabela Unidade';
 
 
-ALTER SEQUENCE public.seq_prfl_und_usu OWNED BY public.PRFL_UND_USU.NR_PRFL_UND_USU;
+ALTER SEQUENCE public.seq_prfl_und_usu OWNED BY public.PRFL_UND_USU_SIS.NR_PRFL_UND_USU_SIS;
 
 ALTER TABLE public.USU_SIS ADD CONSTRAINT pss_usu_sis_fk
 FOREIGN KEY (NR_PSS)
@@ -135,14 +128,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.PRFL_UND_USU ADD CONSTRAINT und_prfl_und_usu_fk
+ALTER TABLE public.PRFL_UND_USU_SIS ADD CONSTRAINT und_prfl_und_usu_sis_fk
 FOREIGN KEY (NR_UND)
 REFERENCES public.UND (NR_UND)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.PRFL_UND_USU ADD CONSTRAINT usu_sis_prfl_und_usu_fk
+ALTER TABLE public.PRFL_UND_USU_SIS ADD CONSTRAINT usu_sis_prfl_und_usu_fk
 FOREIGN KEY (NR_USU_SIS)
 REFERENCES public.USU_SIS (NR_USU_SIS)
 ON DELETE NO ACTION
@@ -156,7 +149,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.PRFL_UND_USU ADD CONSTRAINT prfl_prfl_und_usu_fk
+ALTER TABLE public.PRFL_UND_USU_SIS ADD CONSTRAINT prfl_prfl_und_usu_fk
 FOREIGN KEY (NR_PRFL)
 REFERENCES public.PRFL (NR_PRFL)
 ON DELETE NO ACTION
