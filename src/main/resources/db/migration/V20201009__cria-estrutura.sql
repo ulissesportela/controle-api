@@ -84,10 +84,10 @@ COMMENT ON COLUMN public.PSS.DT_HH_CAD_PSS IS 'Data hora cadastro pessoa';
 
 ALTER SEQUENCE public.seq_pss OWNED BY public.PSS.NR_PSS;
 
-CREATE SEQUENCE public.seq_und_1;
+CREATE SEQUENCE public.seq_und;
 
 CREATE TABLE public.UND (
-                NR_UND NUMERIC(4) NOT NULL DEFAULT nextval('public.seq_und_1'),
+                NR_UND NUMERIC(4) NOT NULL DEFAULT nextval('public.seq_und'),
                 NR_CID NUMERIC(4) NOT NULL,
                 TX_EMAI_UND VARCHAR(30),
                 CD_UND VARCHAR(4) NOT NULL,
@@ -113,7 +113,7 @@ COMMENT ON COLUMN public.UND.TX_JST_UND_IATV IS 'Texto com a justificativa da in
 COMMENT ON COLUMN public.UND.NR_TIP_UND IS 'PK tabela Tipo Unidade';
 
 
-ALTER SEQUENCE public.seq_und_1 OWNED BY public.UND.NR_UND;
+ALTER SEQUENCE public.seq_und OWNED BY public.UND.NR_UND;
 
 CREATE SEQUENCE public.seq_usu_sis;
 
