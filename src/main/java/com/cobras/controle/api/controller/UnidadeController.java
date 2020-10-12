@@ -3,6 +3,8 @@ package com.cobras.controle.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +45,12 @@ public class UnidadeController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Unidade incluir(@RequestBody Unidade unidade) {
+	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return unidadeRepository.save(unidade);
 	}
 	
 	@PutMapping("/{unidadeId}")
-	public ResponseEntity<Unidade> alterar( @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
+	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		
 		//Verifica se a Unidade existe
 		if (!unidadeRepository.existsById(unidadeId)) {
