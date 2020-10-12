@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.UnidadeRepository;
+import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 @RestController
 @RequestMapping("/unidades")
@@ -27,6 +28,9 @@ public class UnidadeController {
 
 	@Autowired
 	private UnidadeRepository unidadeRepository;
+	
+	@Autowired
+	private CadastroUnidadeService cadastroComRegraUnidade;
 	
 	@GetMapping()
 	public List<Unidade> listar() {
@@ -58,7 +62,7 @@ public class UnidadeController {
 		}
 		
 		unidade.setId(unidadeId);
-		unidade = unidadeRepository.save(unidade);
+		unidade = cadastroComRegraUnidade.Incluir(unidade);
 		
 		return ResponseEntity.ok(unidade);
 	}
@@ -71,7 +75,7 @@ public class UnidadeController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		unidadeRepository.deleteById(unidadeId);
+		cadastroComRegraUnidade.excluir(unidadeId);
 		
 		return ResponseEntity.noContent().build();
 	}
