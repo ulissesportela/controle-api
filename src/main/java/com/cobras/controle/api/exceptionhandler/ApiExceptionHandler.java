@@ -1,5 +1,6 @@
 package com.cobras.controle.api.exceptionhandler;
 
+<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -56,4 +57,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
+=======
+public class ApiExceptionHandler {
+
+>>>>>>> 7b9a13befbf1fef28511a3613fc7031081118222
 }
