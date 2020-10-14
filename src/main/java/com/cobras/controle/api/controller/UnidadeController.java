@@ -50,7 +50,7 @@ public class UnidadeController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
-		return unidadeRepository.save(unidade);
+		return cadastroComRegraUnidade.incluir(unidade);
 	}
 	
 	@PutMapping("/{unidadeId}")
@@ -62,7 +62,7 @@ public class UnidadeController {
 		}
 		
 		unidade.setId(unidadeId);
-		unidade = cadastroComRegraUnidade.Incluir(unidade);
+		unidade = cadastroComRegraUnidade.incluir(unidade);
 		
 		return ResponseEntity.ok(unidade);
 	}

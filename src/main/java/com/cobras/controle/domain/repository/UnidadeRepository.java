@@ -12,5 +12,6 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 
 	List<Unidade> findByNome(String nome);
 	List<Unidade> findByNomeContaining(String nome);
-	Unidade findByCodigo(Long codigo);
+	Unidade findByCodigo(String codigo);
+	Unidade findByEmail(String email);
 }

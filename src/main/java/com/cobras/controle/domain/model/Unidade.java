@@ -1,7 +1,5 @@
 package com.cobras.controle.domain.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,10 +75,6 @@ public class Unidade {
 	@Column(name="IN_UND_ATV")
 	private char ativo;
 	//1 = Sim 0 = Não
-	
-	//@Column(name="DT_HH_CAD_UND")
-	//private LocalDate dataCadastro;
-	////Data Hora Cadastro Unidade
 	
 	@Size(max = 30)
 	@Column(name="TX_JST_UND_IATV")
