@@ -62,7 +62,7 @@ public class UnidadeController {
 		}
 		
 		unidade.setId(unidadeId);
-		unidade = cadastroComRegraUnidade.incluir(unidade);
+		unidade = cadastroComRegraUnidade.alterar(unidade);
 		
 		return ResponseEntity.ok(unidade);
 	}

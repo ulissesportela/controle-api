@@ -16,7 +16,17 @@ public class CadastroUnidadeService {
 	public Unidade incluir(Unidade unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 		
-		if (unidadeExistente != null && !unidadeExistente.equals(unidade)) {
+		if (unidadeExistente != null) {
+			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
+		}
+		
+		return unidadeRepository.save(unidade);
+	}
+	
+	public Unidade alterar(Unidade unidade) {
+		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
+		
+		if (unidadeExistente != null && unidadeExistente.getId() != unidade.getId()) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
 		}
 		
