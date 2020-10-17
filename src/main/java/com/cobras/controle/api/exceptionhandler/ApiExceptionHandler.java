@@ -1,6 +1,5 @@
 package com.cobras.controle.api.exceptionhandler;
 
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ import com.cobras.controle.domain.exception.NegocioException;
 
 @ControllerAdvice //Incluindo controle de exceção para todos os controladores
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
-
+	
 	@Autowired
 	private MessageSource messageSource;
 	
@@ -57,8 +56,5 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		return super.handleExceptionInternal(ex, problema, headers, status, request);
 	}
-=======
-public class ApiExceptionHandler {
 
->>>>>>> 7b9a13befbf1fef28511a3613fc7031081118222
 }
