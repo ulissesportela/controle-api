@@ -2,6 +2,8 @@ package com.cobras.controle.domain.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,14 +54,14 @@ public class Unidade {
 	
 	@NotNull
 	@Column(name="NR_TIP_UND")
-	private Long tipo;
+	@Enumerated(EnumType.ORDINAL)
+	private TipoUnidade tipo;
 	//PK tabela Tipo Unidade
 	
 	@NotNull
-	@Column(name="NR_CID")
+	@Column(name="NR_MUN")
 	private Long cidade;
 	//FK tabela Cidade
-	
 	
 	@Email
 	@Size(max = 30)
