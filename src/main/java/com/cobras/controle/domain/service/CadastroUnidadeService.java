@@ -26,7 +26,7 @@ public class CadastroUnidadeService {
 	public Unidade alterar(Unidade unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 		
-		if (unidadeExistente != null && unidadeExistente.getId() != unidade.getId()) {
+		if (unidadeExistente != null && !unidadeExistente.getId().equals(unidade.getId())) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
 		}
 		
