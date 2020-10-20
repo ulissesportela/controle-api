@@ -17,4 +17,3 @@ ALTER TABLE public.und ADD check (in_und_atv = '1' or in_und_atv = '0');
 --ALTER TABLE public.menu ADD check (in_sis_menu = 'W' or in_sis_menu = 'M'); 
 ALTER TABLE public.prm_sis ADD check (in_amb = 'D' or in_amb = 'H' or in_amb = 'P'); 
  
-
