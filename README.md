@@ -1,26 +1,29 @@
 # controle-api
 Projeto de estudo em spring rest, com controle de acesso de usuários
 
-# API rest Spring Data JPA com Hibernate, Banco H2 em memória
+# API rest Spring Data JPA com Hibernate, Banco Postgres
 
 ## Description
-Esse projeto inicia como controle de acesso e cadastro de usuários perfis e unidades no banco de dados H2 executado em memória. Usando os seguintes endpoints, diferentes operações podem ser realizadas:
-- `/usuarios` - This returns the list of Users in the Users table which is created in H2 Table (users)
-- `/rest/users/{name}` - This returns the details of the Users passed in URL
-- `/rest/id/{id}` - This returns the details of the Users for the user Id passed in URL
-- `/rest/update/{id}/{name}` - This updates the name of the user for the userId passed in the URL
+Esse projeto inicia como controle de acesso e cadastro de usuários perfis e unidades no banco de dados Postgres. Usando os seguintes endpoints, diferentes operações podem ser realizadas:
+- `/unidades` - Retorna a lista de unidades na tabela de unidades
+- `/unidades/{id}` - Retorna os detalhes da unidade pesquisada por código passado na URL
+- `/unidades` - Inclui uma unidade
+- `/unidades/{id}` - Altera uma unidade passando o código na URL
 
-## Libraries used
+## Bibliotecas usadas
 - Spring Boot
 - Spring MVC (Spring Web)
 - Lombok
 - Spring Data JPA with Hibernate
-- H2
+- Postgres
 
-## Tools used
+## Ferramentas usadas
 - Git
 - Eclipse
-- H2 running locally
+- Docker
+- Postgres
+- DBeaver
+- Insomnia
 
-## Compilation Command
+## Comando de compilação
 - `mvn clean install` - Plain maven clean and install
