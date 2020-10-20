@@ -25,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 @Builder
 @Entity
@@ -42,11 +42,11 @@ public class Unidade {
 	
 	@NotBlank
 	@Size(max = 50)
-	@Column(name="TX_NM_UND")
+	@Column(name="NM_UND")
 	private String nome;
 	//Nome da Unidade
 	
-	@NotBlank
+	@NotNull
 	@Size(max = 4)
 	@Column(name="CD_UND")
 	private String codigo;
