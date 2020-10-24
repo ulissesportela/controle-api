@@ -3,8 +3,15 @@ Projeto de estudo em spring rest, com controle de acesso de usuários
 
 # API rest Spring Data JPA com Hibernate, Banco Postgres
 
-## Description
-Esse projeto inicia como controle de acesso e cadastro de usuários perfis e unidades no banco de dados Postgres. Usando os seguintes endpoints, diferentes operações podem ser realizadas:
+## Descrição
+Esse projeto inicia como controle de acesso e cadastro de usuários perfis e unidades no banco de dados Postgres. Diferentes operações podem ser realizadas:
+
+### Funcionalidades
+- [x] Cadastro de Unidades
+- [ ] Cadastro de Clientes
+- [ ] Efetuar Login
+
+### Endpoints, 
 - `/unidades` - Retorna a lista de unidades na tabela de unidades
 - `/unidades/{id}` - Retorna os detalhes da unidade pesquisada por código passado na URL
 - `/unidades` - Inclui uma unidade
@@ -13,6 +20,9 @@ Esse projeto inicia como controle de acesso e cadastro de usuários perfis e uni
 ## Bibliotecas usadas
 - Spring Boot
 - Spring MVC (Spring Web)
+- Srping Security
+- Spring Data
+- Maven
 - Lombok
 - Spring Data JPA with Hibernate
 - Postgres
