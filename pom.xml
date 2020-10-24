@@ -20,6 +20,24 @@
 
 	<dependencies>
 		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-devtools</artifactId>
+	        <optional>true</optional>
+	    </dependency>
+	    
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<version>2.0.1.RELEASE</version>
+		</dependency>
+		
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -34,11 +52,6 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency> 
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
@@ -47,11 +60,7 @@
 		    <scope>provided</scope>
 		</dependency>
 
-	    <dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-devtools</artifactId>
-	        <optional>true</optional>
-	    </dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
 		<dependency>
@@ -88,6 +97,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+	            <configuration>
+	                <excludeDevtools>false</excludeDevtools>
+	            </configuration>
 			</plugin>
 		</plugins>
 	</build>
