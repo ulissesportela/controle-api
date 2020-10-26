@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+ postgres-docker:
+  image: postgres:12.4
+  environment:
+   - POSTGRES_PASSWORD=postgres
+   - PRIMARY_USER=postgres
+  ports:
+   - 5432:5432
+
+ controle-api:
+  image: ulissesportela/controle-api:latest
+  ports:
+   - 8080:8080
+  restart: unless-stopped
+  build:
+   context: ./
+   dockerfile: Dockerfile
+  depends_on:
+   - postgres-docker
