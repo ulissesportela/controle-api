@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.cobras.controle.domain.exception.NegocioException;
 
-@ControllerAdvice //Incluindo controle de exceção para todos os controladores
+@ControllerAdvice //Incluindo controle de excecao para todos os controladores
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@Autowired
@@ -50,8 +50,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		var problema = new Problema();
 		problema.setStatus(status.value());
-		problema.setTitulo("Um ou mais campos estão inválidos. "
-				+ "Faça o preenchimento correto e tente novamente.");
+		problema.setTitulo("Um ou mais campos estao invalidos. "
+				+ "Faca o preenchimento correto e tente novamente.");
 		problema.setCampos(campos);
 		
 		return super.handleExceptionInternal(ex, problema, headers, status, request);

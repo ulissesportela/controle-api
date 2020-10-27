@@ -77,7 +77,7 @@ public class UnidadeController {
 	}
 	
 	@ApiOperation("Excluir uma Unidade")
-	@DeleteMapping("/excluir/{unidadeId}")
+	@DeleteMapping(path = "/excluir/{unidadeId}", consumes= {"application/json"})
 	public ResponseEntity<Void> excluir( @PathVariable Long unidadeId ) {
 		
 		//Verifica se a Unidade existe
