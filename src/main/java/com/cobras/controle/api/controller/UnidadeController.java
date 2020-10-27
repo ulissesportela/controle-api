@@ -32,15 +32,14 @@ public class UnidadeController {
 	private CadastroUnidadeServiceImpl cadastroComRegraUnidade;
 	
 	@ApiOperation("Listar Todas Unidades")
-	@GetMapping(produces = { "application/json"}, 
-		path ="/lista")
+	@GetMapping(produces = { "application/json"})
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
 	
 	@ApiOperation("Buscar por ID")
 	@GetMapping(produces = { "application/json"}, 
-		path = "/lista/{unidadeId}")
+		path = "/{unidadeId}")
 	public ResponseEntity<Unidade> buscar(@PathVariable  Long unidadeId) {
 		Optional<Unidade> unidade = cadastroComRegraUnidade.findById(unidadeId);
 		if (unidade.isPresent()) {
@@ -51,14 +50,14 @@ public class UnidadeController {
 
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping( produces = { "application/json"}, 
-		consumes= {"application/json"}, path="/inclui")
+		consumes= {"application/json"})
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 	
 	@ApiOperation("Alterar uma Unidade")
-	@PutMapping(path = "/altera/{unidadeId}", 
+	@PutMapping(path = "/{unidadeId}", 
 		consumes= {"application/json"}, 
 		produces = { "application/json"})
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
