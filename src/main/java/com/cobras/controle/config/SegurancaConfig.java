@@ -20,7 +20,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("marcelo").password("123").roles("MASTER");
@@ -28,7 +28,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 		auth.inMemoryAuthentication().withUser("clotilde").password("123").roles("SUPERVISOR");
 		auth.inMemoryAuthentication().withUser("renata").password("123").roles("AGENTE");
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();

@@ -29,56 +29,59 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name="und")
+//Tabela com o cadastro das Unidades
 public class Unidade {
-	//Tabela com o cadastro das Unidades
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="unidade_sequence")
 	@SequenceGenerator(name="unidade_sequence", sequenceName="seq_und", allocationSize=1)
 	@Column(name="NR_UND")
-	private Long id;
 	//PK Tabela Unidade
+	private Long id;
 	
-	@NotBlank
+	@NotBlank(message = "O nome da unidade nao pode ser vazio")
 	@Size(max = 50)
 	@Column(name="NM_UND")
-	private String nome;
 	//Nome da Unidade
+	private String nome;
 	
 	@NotNull
 	@Size(max = 4)
 	@Column(name="CD_UND")
-	private String codigo;
+	@NotBlank(message = "O codigo da Unidade nao pode ser vazio")
 	//Codigo da unidade
+	private String codigo;
 	
 	@NotNull
+	@NotBlank(message = "O Tipo da Unidade nao pode ser vazio")
 	@Column(name="NR_TIP_UND")
 	@Enumerated(EnumType.ORDINAL)
-	private TipoUnidade tipo;
 	//PK tabela Tipo Unidade
+	private TipoUnidade tipo;
 	
 	@NotNull
 	@Column(name="NR_MUN")
-	private Long cidade;
 	//FK tabela Cidade
+	private Long cidade;
 	
 	@Email
 	@Size(max = 30)
 	@Column(name="TX_EMAI_UND")
-	private String email;
 	//E-mail da Unidade
+	private String email;
 	
 	@Size(max = 11)
 	@Column(name="TX_TEL_UND")
-	private String telefone;
 	//Telefone da Unidade
+	private String telefone;
 	
 	@Column(name="IN_UND_ATV")
-	private char ativo;
 	//1 = Sim 0 = Nao
+	private char ativo;
 	
 	@Size(max = 30)
 	@Column(name="TX_JST_UND_IATV")
-	private String justificativa;
 	//Texto com a justificativa da inatividade da unidade
+	private String justificativa;
+	
 }

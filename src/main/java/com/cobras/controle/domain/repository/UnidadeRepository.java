@@ -11,7 +11,10 @@ import com.cobras.controle.domain.model.Unidade;
 public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 
 	List<Unidade> findByNome(String nome);
+	
 	List<Unidade> findByNomeContaining(String nome);
+	
 	Unidade findByCodigo(String codigo);
+	
 	Unidade findByEmail(String email);
 }

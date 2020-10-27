@@ -15,8 +15,11 @@ import lombok.Setter;
 public class Problema {
 
 	private Integer status;
+	
 	private LocalDateTime dataHora;
+	
 	private String titulo;
+	
 	private List<Campo> campos;
 	
 	public static class Campo {
@@ -32,16 +35,17 @@ public class Problema {
 		public String getNome() {
 			return nome;
 		}
+		
 		public void setNome(String nome) {
 			this.nome = nome;
 		}
+		
 		public String getMensagem() {
 			return mensagem;
 		}
+		
 		public void setMensagem(String mensagem) {
 			this.mensagem = mensagem;
 		}
-		
 	}
-	
 }
