@@ -17,7 +17,6 @@ import com.cobras.controle.domain.service.impl.CadastroUnidadeServiceImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ActiveProfiles("test")
 class ControleApiApplicationTests {
 
 	
@@ -39,6 +38,5 @@ class ControleApiApplicationTests {
 		assertThat(perfilController).isNotNull();
 		assertThat(unidadeController).isNotNull();
 		assertThat(usuarioController).isNotNull();
-		
 	}
 }

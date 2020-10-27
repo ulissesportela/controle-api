@@ -24,15 +24,15 @@ public class Estado {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="estado_sequence")
 	@SequenceGenerator(name="estado_sequence", sequenceName="seq_und_fdrl", allocationSize=1)
-	@Column(name="NR_UND_FDRL")
+	@Column(name="nr_und_fdrl")
 	private Long id;
 	
-	@Column(name = "CD_UND_FDRL")
+	@Column(name = "cd_und_fdrl")
 	private String codigo;
 	
-	@Column(name = "NM_UND_FDRL")
+	@Column(name = "nm_und_fdrl")
 	private String nome;
 	
-	@Column(name = "SG_UND_FDRL")
+	@Column(name = "sg_und_fdrl")
     private String sigla;
 }

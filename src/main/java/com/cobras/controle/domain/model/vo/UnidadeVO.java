@@ -1,6 +1,8 @@
 package com.cobras.controle.domain.model.vo;
 
 import java.io.Serializable;
+
+import com.cobras.controle.domain.model.Municipio;
 import com.cobras.controle.domain.model.TipoUnidade;
 
 import lombok.EqualsAndHashCode;
@@ -31,5 +33,9 @@ public class UnidadeVO implements Serializable {
 	private char ativo;
 	
 	private String justificativa;
+	
+	private String responsavel;
+	
+	private Municipio municipio;
 	
 }

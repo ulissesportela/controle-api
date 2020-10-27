@@ -5,8 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,19 +28,21 @@ public class Municipio {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="municipio_sequence")
 	@SequenceGenerator(name="municipio_sequence", sequenceName="seq_mun", allocationSize=1)
-	@Column(name = "NR_MUN")
+	@Column(name = "nr_mun")
 	private Long id;
 	
-	@Column(name = "CD_MUN")
+	@Column(name = "cd_mun")
 	private String codigo;
 	
-	@Column(name = "CD_MUN_CMT")
+	@Column(name = "cd_mun_cmt")
 	private String codigoCompleto;
 	
-	@Column(name = "NM_MUN")
+	@Column(name = "nm_mun")
+	@Max(value = 50)
 	private String nome;
 	
-	@Column(name = "NR_UND_FDRL")
-	private long estado;
+	@ManyToOne
+	@JoinColumn(name="nr_und_fdrl", insertable = false, updatable = false)
+	private Estado estado;
 
 }
