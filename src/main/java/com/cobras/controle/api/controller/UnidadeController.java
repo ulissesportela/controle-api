@@ -1,7 +1,6 @@
 package com.cobras.controle.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.vo.UnidadeVO;
 import com.cobras.controle.domain.service.impl.CadastroUnidadeServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "CRUD de Unidade")
+@Api(tags = "EndPoint de Unidades")
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {
@@ -33,35 +32,34 @@ public class UnidadeController {
 	
 	@ApiOperation("Listar Todas Unidades")
 	@GetMapping(produces = { "application/json"})
-	public List<Unidade> listar() {
+	@ResponseStatus(HttpStatus.OK)
+	public List<UnidadeVO> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
 	
-	@ApiOperation("Buscar por ID")
+	@ApiOperation("Buscar a Unidade por ID")
 	@GetMapping(produces = { "application/json"}, 
 		path = "/{unidadeId}")
-	public ResponseEntity<Unidade> buscar(@PathVariable  Long unidadeId) {
-		Optional<Unidade> unidade = cadastroComRegraUnidade.findById(unidadeId);
-		if (unidade.isPresent()) {
-			return ResponseEntity.ok(unidade.get());
-		}
-		return ResponseEntity.notFound().build();
+	@ResponseStatus(HttpStatus.OK)
+	public UnidadeVO buscar(@PathVariable Long unidadeId) {
+		return cadastroComRegraUnidade.findById(unidadeId);
 	}
 
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping( produces = { "application/json"}, 
 		consumes= {"application/json"})
 	@ResponseStatus(HttpStatus.CREATED)
-	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
+	public UnidadeVO incluir(@Valid @RequestBody UnidadeVO unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 	
-	@ApiOperation("Alterar uma Unidade")
+	@ApiOperation("Alterar Os dados de uma unidade ja existente")
 	@PutMapping(path = "/{unidadeId}", 
 		consumes= {"application/json"}, 
 		produces = { "application/json"})
-	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
-			@RequestBody Unidade unidade) {
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<UnidadeVO> alterar(@Valid @PathVariable Long unidadeId, 
+			@RequestBody UnidadeVO unidade) {
 		//Verifica se a Unidade existe
 		if (!cadastroComRegraUnidade.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();

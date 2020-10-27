@@ -13,9 +13,13 @@ Esse projeto inicia como controle de acesso e cadastro de usuários perfis e uni
 
 ### Endpoints, 
 - `/unidades` - Retorna a lista de unidades na tabela de unidades
-- `/unidades/{id}` - Retorna os detalhes da unidade pesquisada por código passado na URL
+- `/unidades/{id}` - Retorna os detalhes da unidade pesquisada por codigo passado na URL
 - `/unidades` - Inclui uma unidade
-- `/unidades/{id}` - Altera uma unidade passando o código na URL
+- `/unidades/{id}` - Altera uma unidade passando o codigo na URL
+
+
+## Swagger
+http://localhost:8080/swagger-ui.html
 
 ## Bibliotecas usadas
 - Spring Boot
@@ -35,5 +39,7 @@ Esse projeto inicia como controle de acesso e cadastro de usuários perfis e uni
 - DBeaver
 - Insomnia
 
-## Comando de compilação
+## Comando de compilacao
 - `mvn clean install` - Plain maven clean and install
+
+

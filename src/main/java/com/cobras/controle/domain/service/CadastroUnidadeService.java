@@ -1,19 +1,18 @@
 package com.cobras.controle.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.vo.UnidadeVO;
 
 public interface CadastroUnidadeService {
 
-	public Unidade incluir(Unidade unidade);
+	public UnidadeVO incluir(UnidadeVO unidade);
 	
-	public Unidade alterar(Unidade unidade);
+	public UnidadeVO alterar(UnidadeVO unidade);
 	
-	public Optional<Unidade> findById(Long id);
+	public UnidadeVO findById(Long id);
 	
-	public List<Unidade> findAll();
+	public List<UnidadeVO> findAll();
 	
 	public boolean existsById(Long id);
 }
