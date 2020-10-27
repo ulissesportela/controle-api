@@ -49,7 +49,7 @@ public class Unidade {
 	@Size(max = 4)
 	@Column(name="CD_UND")
 	private String codigo;
-	//Código da unidade
+	//Codigo da unidade
 	
 	@NotNull
 	@Column(name="NR_TIP_UND")
@@ -75,7 +75,7 @@ public class Unidade {
 	
 	@Column(name="IN_UND_ATV")
 	private char ativo;
-	//1 = Sim 0 = Não
+	//1 = Sim 0 = Nao
 	
 	@Size(max = 30)
 	@Column(name="TX_JST_UND_IATV")

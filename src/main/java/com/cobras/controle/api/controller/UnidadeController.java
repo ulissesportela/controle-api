@@ -22,6 +22,11 @@ import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+
+@Api(tags = "CRUD de Unidade")
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {
@@ -32,12 +37,14 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 	
-	@GetMapping()
+	@ApiOperation("Listar Todas Unidades")
+	@GetMapping(produces = { "application/json"}, path ="/listar")
 	public List<Unidade> listar() {
 		return unidadeRepository.findAll();
 	}
 	
-	@GetMapping("/{unidadeId}")
+	@ApiOperation("Buscar por ID")
+	@GetMapping(produces = { "application/json"}, path = "/listar/{unidadeId}")
 	public ResponseEntity<Unidade> buscar(@PathVariable  Long unidadeId) {
 		Optional<Unidade> unidade = unidadeRepository.findById(unidadeId);
 		
@@ -47,13 +54,15 @@ public class UnidadeController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping
+	@ApiOperation("Incluir uma Unidade")
+	@PostMapping( produces = { "application/json"}, consumes= {"application/json"}, path="/incluir")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 	
-	@PutMapping("/{unidadeId}")
+	@ApiOperation("Alterar uma Unidade")
+	@PutMapping("/alterar/{unidadeId}")
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		
 		//Verifica se a Unidade existe
@@ -67,7 +76,8 @@ public class UnidadeController {
 		return ResponseEntity.ok(unidade);
 	}
 	
-	@DeleteMapping("/{unidadeId}")
+	@ApiOperation("Excluir uma Unidade")
+	@DeleteMapping("/excluir/{unidadeId}")
 	public ResponseEntity<Void> excluir( @PathVariable Long unidadeId ) {
 		
 		//Verifica se a Unidade existe
