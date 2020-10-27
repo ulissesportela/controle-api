@@ -1,13 +1,14 @@
 package com.cobras.controle.domain.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cobras.controle.converter.DozerConverter;
 import com.cobras.controle.domain.exception.NegocioException;
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.vo.UnidadeVO;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
@@ -18,37 +19,39 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	private UnidadeRepository unidadeRepository;
 	
 	@Override
-	public Unidade incluir(Unidade unidade) {
-		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
-		
-		if (unidadeExistente != null) {
-			throw new NegocioException("Ja existe uma unidade cadastrada com esse codigo");
-		}
-		
-		return unidadeRepository.save(unidade);
+	public UnidadeVO incluir(UnidadeVO unidade) {
+		Unidade entidade = DozerConverter.parseObject(unidade, Unidade.class);
+		return DozerConverter.parseObject(unidadeRepository.save(entidade), UnidadeVO.class);
 	}
 	
 	@Override
-	public Unidade alterar(Unidade unidade) {
+	public UnidadeVO alterar(UnidadeVO unidade) {
+		Unidade entidade = DozerConverter.parseObject(unidade, Unidade.class);
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 		if (unidadeExistente != null && !unidadeExistente.getId().equals(unidade.getId())) {
 			throw new NegocioException("Ja existe uma unidade cadastrada com esse codigo");
 		}
-		return unidadeRepository.save(unidade);
+
+		return DozerConverter.parseObject(unidadeRepository.save(entidade), UnidadeVO.class);
 	}
 	
 	@Override
-	public Optional<Unidade> findById(Long id) {
-		return unidadeRepository.findById(id);
+	public UnidadeVO findById(Long id) {
+		var entidade = unidadeRepository.findById(id);
+		return DozerConverter.parseObject(entidade, UnidadeVO.class);
+		
 	}
 
 	@Override
-	public List<Unidade> findAll() {
-		return unidadeRepository.findAll();
+	public List<UnidadeVO> findAll() {
+		return DozerConverter.parseListObjects(unidadeRepository.findAll(), UnidadeVO.class);
+
 	}
 
 	@Override
 	public boolean existsById(Long id) {
 		return unidadeRepository.existsById(id);
 	}
+
+
 }
