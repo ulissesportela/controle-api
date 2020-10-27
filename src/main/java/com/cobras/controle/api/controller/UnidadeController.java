@@ -62,7 +62,7 @@ public class UnidadeController {
 	}
 	
 	@ApiOperation("Alterar uma Unidade")
-	@PutMapping("/alterar/{unidadeId}")
+	@PutMapping(path = "/alterar/{unidadeId}", consumes= {"application/json"}, produces = { "application/json"})
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		
 		//Verifica se a Unidade existe
