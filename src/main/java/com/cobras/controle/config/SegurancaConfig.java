@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -41,7 +40,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	        http
 	            .csrf().disable()
 	            .cors().disable()
-	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	            .authorizeRequests().antMatchers("/unidades*/","/unidades/**").permitAll().antMatchers("/unidades*/","/unidades/**").authenticated().anyRequest().denyAll();
 
 	    }
 
