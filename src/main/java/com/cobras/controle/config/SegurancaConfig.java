@@ -40,8 +40,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	    public void configure(HttpSecurity http) throws Exception {
 	        http
 	            .csrf().disable()
-	            .cors()
-	        .and()
+	            .cors().disable()
 	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 	    }
