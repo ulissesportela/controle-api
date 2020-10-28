@@ -1,4 +1,4 @@
-package io.github.dougllasfps.clientes.config;
+package com.cobras.controle.config;
 
 import java.util.Arrays;
 import java.util.List;
