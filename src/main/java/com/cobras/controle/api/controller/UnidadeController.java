@@ -28,7 +28,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@Api(tags = "CRUD de Unidade")
+@Api(tags = "Endpoint de Unidades")
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {
@@ -46,7 +46,7 @@ public class UnidadeController {
 		return unidadeLista;
 	}
 	
-	@ApiOperation("Buscar por ID")
+	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json"}, 
 	path = "/{unidadeId}")
 	public ResponseEntity<Unidade> buscar(@PathVariable  Long unidadeId) {
@@ -65,7 +65,7 @@ public class UnidadeController {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 	
-	@ApiOperation("Alterar uma Unidade")
+	@ApiOperation("Alterar uma Unidade Já existente")
 	@PutMapping(path = "/{unidadeId}", 
 		consumes= {"application/json"}, 
 		produces = { "application/json"})
@@ -81,20 +81,6 @@ public class UnidadeController {
 		
 		return ResponseEntity.ok(unidade);
 	}
-	
-	@ApiOperation("Excluir uma Unidade")
-	@DeleteMapping(path = "/{unidadeId}", 
-		consumes= {"application/json"})
-	public ResponseEntity<Void> excluir( @PathVariable Long unidadeId ) {
-		
-		//Verifica se a Unidade existe
-		if (!unidadeRepository.existsById(unidadeId)) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		cadastroComRegraUnidade.excluir(unidadeId);
-		
-		return ResponseEntity.noContent().build();
-	}
+
 
 }
