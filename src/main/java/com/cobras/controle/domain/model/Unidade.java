@@ -76,7 +76,7 @@ public class Unidade {
 	//Telefone da Unidade
 	private String telefone;
 	
-	@Size(max=1)
+	
 	@Column(name="in_est_und_atv")
 	//1 = Sim 0 = Nao
 	private char ativo;
