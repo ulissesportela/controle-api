@@ -20,10 +20,7 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 	
 	Unidade findByEmail(String email);
 	
-	@Query(value = "SELECT unidade FROM Unidade unidade INNER JOIN unidade.municipio mun"
-			+ " WHERE 1=1 OR unidade.codigo = ?1 OR unidade.nome = ?2 "
-			+ "OR unidade.responsavel =?3")
-	List<Unidade> findAllPesquisa(String codigo, String nome, String responsavel);
+
 	
 	List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, String nome, 
 			String responsavel);

@@ -80,10 +80,11 @@ public class Unidade implements Serializable {
 	// Telefone da Unidade
 	private String telefone;
 
-	@ManyToOne
-	@JoinColumn(name = "nr_mun", insertable = false, updatable = false)
-	private Municipio municipio;
-
+	@NotNull
+	@Column(name="nr_mun")
+	//FK tabela Cidade
+	private Long cidade;
+	
 	@NotNull
 	@Column(name = "nr_tip_und")
 	@Enumerated(EnumType.ORDINAL)

@@ -73,8 +73,6 @@ public class UnidadeController {
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
-		System.out.println("incluir");
-		System.out.println(unidade.toString());
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 

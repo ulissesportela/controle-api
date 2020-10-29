@@ -52,10 +52,6 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findByEmail(email);
 	}
 
-	@Override
-	public List<Unidade> findAllPesquisa(String codigo, String nome, String responsavel) {
-		return unidadeRepository.findAllPesquisa(codigo, nome, responsavel);
-	}
 
 	@Override
 	public List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, 

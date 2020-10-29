@@ -19,9 +19,6 @@ public interface CadastroUnidadeService {
 	
 	boolean existsById(Long id);
 
-	List<Unidade> findAllPesquisa(String codigo, String nome,
-			String responsavel);
-
 	List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, 
 			String nome, String responsavel
 			);
