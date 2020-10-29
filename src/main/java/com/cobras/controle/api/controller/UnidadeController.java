@@ -23,6 +23,7 @@ import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 
 @Api(tags = "Endpoint de Unidades")
 @RestController
@@ -33,28 +34,31 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
-	@ApiOperation("Listar Todas Unidades")
+	@ApiOperation(value = "Listar Todas Unidades",
+			produces = "application/json", consumes = "application/json")
+	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" })
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(reason = "Retornado todas as Unidades", code = HttpStatus.OK, value = HttpStatus.OK)
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
 
-	@ApiOperation("Busca Por parametros")
+	@ApiOperation(value = "Busca Por parametros", produces = "application/json", 
+			consumes = "application/json")
+	
+	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", 
+					response = Unidade.class)
 	@GetMapping(produces = { "application/json" }, 
 		consumes = { "application/json" }, path = "/pesquisar")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> pesquisaParametrizada(
-			@RequestBody(required = false) Optional<Unidade> unidade) {
-		if(unidade.isPresent()) {
+	public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
+		if (unidade.isPresent()) {
 			Unidade unid = unidade.get();
 			String codigo = unid.getCodigo();
 			String nome = unid.getNome();
 			String responsavel = unid.getResponsavel();
-			char ativo = unid.getAtivo(); 
-			return cadastroComRegraUnidade
-					.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, 
-					responsavel, ativo);
+			char ativo = unid.getAtivo();
+			return cadastroComRegraUnidade.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, responsavel, ativo);
 		}
 		return cadastroComRegraUnidade.findAll();
 	}
@@ -72,16 +76,15 @@ public class UnidadeController {
 
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
+	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
 	@ApiOperation("Alterar uma Unidade Já existente")
-	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, 
-	produces = { "application/json" })
+	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
-			@RequestBody Unidade unidade) {
+	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		// Verifica se a Unidade existe
 		if (!cadastroComRegraUnidade.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();
