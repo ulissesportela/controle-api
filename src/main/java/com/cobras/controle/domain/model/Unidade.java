@@ -50,6 +50,7 @@ public class Unidade implements Serializable {
 	// Codigo da unidade
 	private String codigo;
 	
+
 	@Column(name = "in_est_und_atv")
 	// 1 = Sim 0 = Nao
 	private char ativo;
@@ -58,6 +59,7 @@ public class Unidade implements Serializable {
 	@Column(name = "nm_rsp_und")
 	private String responsavel;
 	
+
 	@NotBlank(message = "O nome da unidade nao pode ser vazio")
 	@Size(max = 100)
 	@Column(name = "nm_und")
@@ -69,7 +71,7 @@ public class Unidade implements Serializable {
 	@Column(name = "tx_emai_und")
 	// E-mail da Unidade
 	private String email;
-
+	
 	@Size(max = 30)
 	@Column(name = "tx_jst_und_iatv")
 	// Texto com a justificativa da inatividade da unidade
@@ -90,4 +92,5 @@ public class Unidade implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	// PK tabela Tipo Unidade
 	private TipoUnidade tipo;
+
 }

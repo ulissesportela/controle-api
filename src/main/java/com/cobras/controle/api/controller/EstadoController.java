@@ -30,6 +30,11 @@ public class EstadoController {
 	
 	@GetMapping("/{id}/municipios")
 	public List<Municipio> listarMunicipios( @PathVariable Long id ) {
+		try {
+			return municipioRepository.findByEstado(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return municipioRepository.findByEstado(id);
 	}
 }

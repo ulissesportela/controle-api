@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,9 +45,9 @@ public class Municipio implements Serializable {
 	@Max(value = 50)
 	private String nome;
 	
-	@ManyToOne
-	@JoinColumn(name="nr_und_fdrl", insertable = false, updatable = false)
-	private Estado estado;
 	
-
+	@NotNull
+	@Column(name="nr_und_fdrl")
+	//FK tabela Cidade
+	private Long estado;
 }
