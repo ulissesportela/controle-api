@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +27,6 @@ import com.cobras.controle.domain.service.CadastroUnidadeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-
 @Api(tags = "Endpoint de Unidades")
 @RestController
 @RequestMapping("/unidades")
@@ -34,23 +35,38 @@ public class UnidadeController {
 
 	@Autowired
 	private UnidadeRepository unidadeRepository;
-	
+
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
-	
+
 	@ApiOperation("Listar Todas Unidades")
-	@GetMapping(produces = { "application/json"})
+	@GetMapping(produces = { "application/json" })
 	public List<Unidade> listar() {
-		List<Unidade> unidadeLista = unidadeRepository.findAll();
-		return unidadeLista;
+		return unidadeRepository.findAll();
+	}
+
+	@ApiOperation("Busca Por parametros")
+	@GetMapping(produces = { "application/json" }, 
+		consumes = { "application/json" }, path = "/pesquisar")
+	public List<Unidade> pesquisaParametrizada(
+			@RequestBody(required = false) Optional<Unidade> unidade) {
+		Unidade unid = unidade.get();
+		System.out.println(unidade.get());
+		String codigo = unid.getCodigo();
+		String nome = unid.getNome();
+		
+		String responsavel = unid.getResponsavel();
+		Long cidade = unid.getCidade();
+		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidade(codigo, nome, 
+				responsavel, cidade);
 	}
 	
+
 	@ApiOperation("Busca a Unidade por ID")
-	@GetMapping(produces = { "application/json"}, 
-	path = "/{unidadeId}")
-	public ResponseEntity<Unidade> buscar(@PathVariable  Long unidadeId) {
+	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
+	public ResponseEntity<Unidade> buscar(@PathVariable Long unidadeId) {
 		Optional<Unidade> unidade = unidadeRepository.findById(unidadeId);
-		
+
 		if (unidade.isPresent()) {
 			return ResponseEntity.ok(unidade.get());
 		}
@@ -58,28 +74,26 @@ public class UnidadeController {
 	}
 
 	@ApiOperation("Incluir uma Unidade")
-	@PostMapping( produces = { "application/json"}, consumes= {"application/json"} )
+	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
-	
+
 	@ApiOperation("Alterar uma Unidade Já existente")
-	@PutMapping(path = "/{unidadeId}", 
-		consumes= {"application/json"}, 
-		produces = { "application/json"})
+	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, 
+		produces = { "application/json" })
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
-		
-		//Verifica se a Unidade existe
+
+		// Verifica se a Unidade existe
 		if (!unidadeRepository.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		unidade.setId(unidadeId);
 		unidade = cadastroComRegraUnidade.alterar(unidade);
-		
+
 		return ResponseEntity.ok(unidade);
 	}
-
 
 }
