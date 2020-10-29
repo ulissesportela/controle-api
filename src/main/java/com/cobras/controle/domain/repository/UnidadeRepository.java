@@ -30,4 +30,10 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 	
 	Optional<Unidade> findByCodigoAndNome(String codigo, String nome);
 
+	List<Unidade> findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(String codigo, 
+			String nome, String responsavel,
+			Long cidade, char ativo);
+
+	
+
 }

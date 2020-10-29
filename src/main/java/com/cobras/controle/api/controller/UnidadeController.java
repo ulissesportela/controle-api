@@ -41,6 +41,7 @@ public class UnidadeController {
 
 	@ApiOperation("Listar Todas Unidades")
 	@GetMapping(produces = { "application/json" })
+	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> listar() {
 		return unidadeRepository.findAll();
 	}
@@ -48,22 +49,30 @@ public class UnidadeController {
 	@ApiOperation("Busca Por parametros")
 	@GetMapping(produces = { "application/json" }, 
 		consumes = { "application/json" }, path = "/pesquisar")
+	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> pesquisaParametrizada(
 			@RequestBody(required = false) Optional<Unidade> unidade) {
+		
+		
+		if(unidade.isPresent()) {
 		Unidade unid = unidade.get();
 		System.out.println(unidade.get());
 		String codigo = unid.getCodigo();
 		String nome = unid.getNome();
-		
+
 		String responsavel = unid.getResponsavel();
 		Long cidade = unid.getCidade();
-		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidade(codigo, nome, 
-				responsavel, cidade);
+		char ativo = unid.getAtivo(); 
+		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(codigo, nome, 
+				responsavel, cidade, ativo);
+		}
+		return unidadeRepository.findAll();
+		
 	}
 	
-
 	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> buscar(@PathVariable Long unidadeId) {
 		Optional<Unidade> unidade = unidadeRepository.findById(unidadeId);
 
@@ -83,8 +92,8 @@ public class UnidadeController {
 	@ApiOperation("Alterar uma Unidade Já existente")
 	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, 
 		produces = { "application/json" })
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
-
 		// Verifica se a Unidade existe
 		if (!unidadeRepository.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();
