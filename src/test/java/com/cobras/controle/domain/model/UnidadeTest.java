@@ -50,8 +50,7 @@ class UnidadeTest {
 //		assertEquals(unidadeRetornada.getNome(), "Nome Unidade");
 //		assertEquals(unidadeRetornada.getCodigo(), "350");
 //		assertEquals(unidadeRetornada.getEmail(), "email@email.com");
-//		assertEquals(unidadeRetornada.getTelefone(), "123123123");
-		
+//		assertEquals(unidadeRetornada.getTelefone(), "123123123");		
 //	}
 	
 }

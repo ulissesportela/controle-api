@@ -1,5 +1,8 @@
 package com.cobras.controle.domain.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +37,59 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.save(unidade);
 	}
 
-	public void excluir(Long unidadeId) {
-		unidadeRepository.deleteById(unidadeId);
+	@Override
+	public List<Unidade> findByNomeContaining(String nome) {
+		return unidadeRepository.findByNomeContaining(nome);
+	}
+
+	@Override
+	public Unidade findByCodigo(String codigo) {
+		return unidadeRepository.findByCodigo(codigo);
+	}
+
+	@Override
+	public Unidade findByEmail(String email) {
+		return unidadeRepository.findByEmail(email);
+	}
+
+	@Override
+	public List<Unidade> findAllPesquisa(String codigo, String nome, String responsavel, Long cidade) {
+		return unidadeRepository.findAllPesquisa(codigo, nome, responsavel, cidade);
+	}
+
+	@Override
+	public List<Unidade> findByCodigoAndNomeAndResponsavelAndCidade(String codigo, 
+			String nome, String responsavel,
+			Long cidade) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidade(codigo, nome, 
+				responsavel, cidade);
+	}
+
+	@Override
+	public Optional<Unidade> findByCodigoAndNome(String codigo, String nome) {
+		return unidadeRepository.findByCodigoAndNome(codigo, nome);
+	}
+
+	@Override
+	public List<Unidade> findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(String codigo, String nome,
+			String responsavel, Long cidade, char ativo) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(codigo, nome, 
+				responsavel, cidade, ativo);
+	}
+
+	@Override
+	public List<Unidade> findAll() {
+		return unidadeRepository.findAll();
+	}
+
+	@Override
+	public Optional<Unidade> findById(Long id) {
+		return unidadeRepository.findById(id);
+	}
+
+	@Override
+	public boolean existsById(Long id) {
+		return unidadeRepository.existsById(id);
 	}
 
 }
