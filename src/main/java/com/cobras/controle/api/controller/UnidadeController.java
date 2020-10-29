@@ -51,10 +51,10 @@ public class UnidadeController {
 			String codigo = unid.getCodigo();
 			String nome = unid.getNome();
 			String responsavel = unid.getResponsavel();
-			Long cidade = unid.getCidade();
 			char ativo = unid.getAtivo(); 
-			return cadastroComRegraUnidade.findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(codigo, nome, 
-					responsavel, cidade, ativo);
+			return cadastroComRegraUnidade
+					.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, 
+					responsavel, ativo);
 		}
 		return cadastroComRegraUnidade.findAll();
 	}
@@ -64,7 +64,6 @@ public class UnidadeController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> buscar(@PathVariable Long unidadeId) {
 		Optional<Unidade> unidade = cadastroComRegraUnidade.findById(unidadeId);
-
 		if (unidade.isPresent()) {
 			return ResponseEntity.ok(unidade.get());
 		}
@@ -73,22 +72,24 @@ public class UnidadeController {
 
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
-	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
+		System.out.println("incluir");
+		System.out.println(unidade.toString());
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
 	@ApiOperation("Alterar uma Unidade Já existente")
-	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
+	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, 
+	produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
+	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
+			@RequestBody Unidade unidade) {
 		// Verifica se a Unidade existe
 		if (!cadastroComRegraUnidade.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();
 		}
 		unidade.setId(unidadeId);
 		unidade = cadastroComRegraUnidade.alterar(unidade);
-
 		return ResponseEntity.ok(unidade);
 	}
 

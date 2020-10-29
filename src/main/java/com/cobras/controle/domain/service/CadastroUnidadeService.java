@@ -20,17 +20,17 @@ public interface CadastroUnidadeService {
 	boolean existsById(Long id);
 
 	List<Unidade> findAllPesquisa(String codigo, String nome,
-			String responsavel, Long cidade);
+			String responsavel);
 
-	List<Unidade> findByCodigoAndNomeAndResponsavelAndCidade(String codigo, 
-			String nome, String responsavel,
-			Long cidade);
+	List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, 
+			String nome, String responsavel
+			);
 
 	Optional<Unidade> findByCodigoAndNome(String codigo, String nome);
 
-	List<Unidade> findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(String codigo, 
+	List<Unidade> findByCodigoAndNomeAndResponsavelAndAtivo(String codigo, 
 			String nome, String responsavel,
-			Long cidade, char ativo);
+			 char ativo);
 
 	public Unidade incluir(Unidade unidade);
 

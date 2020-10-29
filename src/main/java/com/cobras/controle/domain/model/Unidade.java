@@ -43,57 +43,50 @@ public class Unidade implements Serializable {
 	// PK Tabela Unidade
 	private Long id;
 
-	@NotBlank(message = "O nome da unidade nao pode ser vazio")
-	@Size(max = 100)
-	@Column(name = "nm_und")
-	// Nome da Unidade
-	private String nome;
-
 	@NotNull
 	@Size(max = 4)
 	@Column(name = "cd_und")
 	@NotBlank(message = "O codigo da Unidade nao pode ser vazio")
 	// Codigo da unidade
 	private String codigo;
-
-	@NotNull
-	@Column(name = "nr_tip_und")
-	@Enumerated(EnumType.ORDINAL)
-	// PK tabela Tipo Unidade
-	private TipoUnidade tipo;
-
-	@NotNull
-	@Column(name = "nr_mun")
-	// FK tabela Cidade
-	private Long cidade;
-
+	
+	@Column(name = "in_est_und_atv")
+	// 1 = Sim 0 = Nao
+	private char ativo;
+	
+	@Size(max = 100)
+	@Column(name = "nm_rsp_und")
+	private String responsavel;
+	
+	@NotBlank(message = "O nome da unidade nao pode ser vazio")
+	@Size(max = 100)
+	@Column(name = "nm_und")
+	// Nome da Unidade
+	private String nome;
+	
 	@Email
 	@Size(max = 100)
 	@Column(name = "tx_emai_und")
 	// E-mail da Unidade
 	private String email;
 
-	@Size(max = 11)
-	@Column(name = "tx_tel_und")
-	// Telefone da Unidade
-	private String telefone;
-
-	@Column(name = "in_est_und_atv")
-	// 1 = Sim 0 = Nao
-	private char ativo;
-
 	@Size(max = 30)
 	@Column(name = "tx_jst_und_iatv")
 	// Texto com a justificativa da inatividade da unidade
 	private String justificativa;
 
-	@Size(max = 100)
-	@Column(name = "nm_rsp_und")
-	private String responsavel;
+	@Size(max = 11)
+	@Column(name = "tx_tel_und")
+	// Telefone da Unidade
+	private String telefone;
 
 	@ManyToOne
 	@JoinColumn(name = "nr_mun", insertable = false, updatable = false)
 	private Municipio municipio;
 
-
+	@NotNull
+	@Column(name = "nr_tip_und")
+	@Enumerated(EnumType.ORDINAL)
+	// PK tabela Tipo Unidade
+	private TipoUnidade tipo;
 }

@@ -6,14 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cobras.controle.api.controller.EstadoController;
 import com.cobras.controle.api.controller.PerfilController;
 import com.cobras.controle.api.controller.UnidadeController;
 import com.cobras.controle.api.controller.UsuarioController;
-import com.cobras.controle.domain.service.impl.CadastroUnidadeServiceImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

@@ -53,16 +53,15 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	}
 
 	@Override
-	public List<Unidade> findAllPesquisa(String codigo, String nome, String responsavel, Long cidade) {
-		return unidadeRepository.findAllPesquisa(codigo, nome, responsavel, cidade);
+	public List<Unidade> findAllPesquisa(String codigo, String nome, String responsavel) {
+		return unidadeRepository.findAllPesquisa(codigo, nome, responsavel);
 	}
 
 	@Override
-	public List<Unidade> findByCodigoAndNomeAndResponsavelAndCidade(String codigo, 
-			String nome, String responsavel,
-			Long cidade) {
-		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidade(codigo, nome, 
-				responsavel, cidade);
+	public List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, 
+			String nome, String responsavel) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, 
+				responsavel);
 	}
 
 	@Override
@@ -71,10 +70,10 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	}
 
 	@Override
-	public List<Unidade> findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(String codigo, String nome,
-			String responsavel, Long cidade, char ativo) {
-		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndCidadeAndAtivo(codigo, nome, 
-				responsavel, cidade, ativo);
+	public List<Unidade> findByCodigoAndNomeAndResponsavelAndAtivo(String codigo, String nome,
+			String responsavel, char ativo) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, 
+				responsavel, ativo);
 	}
 
 	@Override
