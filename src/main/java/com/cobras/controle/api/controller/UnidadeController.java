@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cobras.controle.domain.model.Estado;
+import com.cobras.controle.domain.model.TipoUnidade;
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.repository.EstadoRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -33,6 +36,9 @@ public class UnidadeController {
 
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
@@ -53,12 +59,25 @@ public class UnidadeController {
 		public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
 		if (unidade.isPresent()) {
 			Unidade unid = unidade.get();
+			
 			String codigo = unid.getCodigo();
 			String nome = unid.getNome();
 			String responsavel = unid.getResponsavel();
 			char ativo = unid.getAtivo();
+			Long cidade = unid.getCidade();
+			Long estadoId = 0L;
+			Long estadoRep = unid.getEstado();
+			Optional<Estado> estado = estadoRepository.findById(estadoRep);
+			if(estado.isPresent()) {
+				Estado est = estado.get();
+				estadoId = est.getId();
+			}
+			
+			TipoUnidade tipo = unid.getTipo();
+			System.out.println(estadoId);
+			System.out.println(unid.toString());
 			List<Unidade> listaDTO = cadastroComRegraUnidade
-					.findByListaParametros(codigo, nome, responsavel, ativo);
+					.findByListaParametros(codigo, nome, responsavel, ativo,cidade,tipo.getValor(), estadoId);
 			return listaDTO;
 		}
 		return cadastroComRegraUnidade.findAll();

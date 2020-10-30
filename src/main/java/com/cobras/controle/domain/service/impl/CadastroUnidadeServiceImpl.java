@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cobras.controle.domain.exception.NegocioException;
+import com.cobras.controle.domain.model.TipoUnidade;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
@@ -89,8 +90,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 
 	@Override
 	public List<Unidade> findByListaParametros(String codigo, String nome, 
-			String responsavel, char ativo) {
-		return unidadeRepository.findByListaParametros(codigo, nome, responsavel, ativo);
+			String responsavel, char ativo, Long cidade, Integer tipo, Long estadoId) {
+		return unidadeRepository.findByListaParametros(codigo, nome, responsavel, 
+				ativo, cidade, tipo, estadoId);
 	}
 
 }

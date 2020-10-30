@@ -35,10 +35,13 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 			+ "inner join public.und_fdrl uf on (uf.nr_und_fdrl = m.nr_und_fdrl) " + 
 			" where u.cd_und = :codigo OR "
 			+ " u.nm_und = :nome OR "
+			+ " m.nr_mun = :cidade OR "
+			+ " u.nr_tip_und = :tipo OR "
+			+ " uf.nr_und_fdrl = :estadoId OR "
 			+ " u.nm_rsp_und = :responsavel and u.in_est_und_atv = :ativo", nativeQuery = true)
 	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
-			@Param("ativo") char ativo);
+			@Param("ativo") char ativo, @Param("cidade") Long cidade, 
+			@Param("tipo") Integer tipo, @Param("estadoId") Long estadoId);
 
-	
 }

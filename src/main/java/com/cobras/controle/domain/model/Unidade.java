@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -90,5 +91,8 @@ public class Unidade implements Serializable {
 	@Enumerated(EnumType.ORDINAL)
 	// PK tabela Tipo Unidade
 	private TipoUnidade tipo;
+	
+	@Transient
+	private Long estado;
 
 }
