@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "und")
 //Tabela com o cadastro das Unidades
-public class Unidade implements Serializable {
+public class Unidade implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 

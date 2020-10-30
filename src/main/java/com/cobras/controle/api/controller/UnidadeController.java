@@ -52,15 +52,16 @@ public class UnidadeController {
 
 	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json" })
+	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"})
 	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
 	
-	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao", produces = "application/json")
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json" }, path = "/pesquisarPaginada")
+	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
+	path = "/pesquisarPaginada")
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Unidade> listarTodosPaginado(@RequestParam(value="page", defaultValue = "0") int page,
 			@RequestParam(value="limit", defaultValue = "10") int limit,
@@ -68,19 +69,15 @@ public class UnidadeController {
 			@RequestParam(value="direction", defaultValue = "asc") String direction) {
 		Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordernarPor));
-		
-		
 		Page<Unidade> unidadeLista = unidadeRepository.findAll(pageable);
-		
 		return unidadeLista;
 	}
 
-	@ApiOperation(value = "Busca Por parametros", produces = "application/json", 
-			consumes = "application/json")
+	@ApiOperation(value = "Busca Por parametros")
 	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", 
 	response = Unidade.class)
-		@GetMapping(produces = { "application/json" }, 
-		consumes = { "application/json" }, path = "/pesquisar")
+		@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
+		consumes = { "application/json", "application/xml", "application/x-yaml"}, path = "/pesquisar")
 		@ResponseStatus(HttpStatus.OK)
 		public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
 		if (unidade.isPresent()) {
@@ -110,7 +107,8 @@ public class UnidadeController {
 }
 
 	@ApiOperation("Busca a Unidade por ID")
-	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
+	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
+	path = "/{unidadeId}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> buscar(@PathVariable Long unidadeId) {
 		Optional<Unidade> unidade = cadastroComRegraUnidade.findById(unidadeId);
@@ -121,14 +119,17 @@ public class UnidadeController {
 	}
 
 	@ApiOperation("Incluir uma Unidade")
-	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
+	@PostMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
+	consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
 	@ApiOperation("Alterar uma Unidade Já existente")
-	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
+	@PutMapping(path = "/{unidadeId}", 
+	consumes = { "application/json", "application/xml", "application/x-yaml"}, 
+	produces = { "application/json", "application/xml", "application/x-yaml"})
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		// Verifica se a Unidade existe

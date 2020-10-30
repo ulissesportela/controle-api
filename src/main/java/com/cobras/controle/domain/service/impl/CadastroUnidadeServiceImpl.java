@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cobras.controle.domain.exception.NegocioException;
-import com.cobras.controle.domain.model.TipoUnidade;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
