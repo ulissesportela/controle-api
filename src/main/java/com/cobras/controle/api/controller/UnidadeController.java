@@ -38,7 +38,7 @@ public class UnidadeController {
 			produces = "application/json", consumes = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" })
-	@ResponseStatus(reason = "Retornado todas as Unidades", code = HttpStatus.OK, value = HttpStatus.OK)
+	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
@@ -56,6 +56,8 @@ public class UnidadeController {
 			Unidade unid = unidade.get();
 			String codigo = unid.getCodigo();
 			String nome = unid.getNome();
+			Long cidade = unid.getCidade();
+			
 			String responsavel = unid.getResponsavel();
 			char ativo = unid.getAtivo();
 			return cadastroComRegraUnidade.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, responsavel, ativo);
