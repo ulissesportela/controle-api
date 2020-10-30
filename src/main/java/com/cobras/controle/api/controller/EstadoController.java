@@ -30,16 +30,14 @@ public class EstadoController {
 	private MunicipioRepository municipioRepository;
 
 	@ApiOperation("Listar Todos os Estados")
-	@GetMapping(produces = { "application/json" }, 
-			consumes = { "application/json" })
+	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	public List<Estado> listar() {
 		return estadoRepository.findAll();
 	}
 
 	@ApiOperation("Listar Todos os municipios a partir do Id do Estado informado")
-	@GetMapping(produces = { "application/json" }, 
-			consumes = { "application/json" }, path="/{id}/municipios")
+	@GetMapping(produces = { "application/json" }, path="/{id}/municipios")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Municipio> listarMunicipios(@PathVariable Long id) {
 		return municipioRepository.findByEstado(id);

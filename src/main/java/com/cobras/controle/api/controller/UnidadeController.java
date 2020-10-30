@@ -35,7 +35,7 @@ public class UnidadeController {
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
 	@ApiOperation(value = "Listar Todas Unidades",
-			produces = "application/json", consumes = "application/json")
+			produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
