@@ -38,4 +38,5 @@ public interface CadastroUnidadeService {
 	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, @Param("tipo") Integer tipo, Long estadoId);
+
 }

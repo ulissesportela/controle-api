@@ -3,15 +3,22 @@ package com.cobras.controle.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.boot.model.source.spi.Sortable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cobras.controle.domain.model.Unidade;
 
 @Repository
-public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
+public interface UnidadeRepository extends JpaRepository<Unidade, Long>,
+	PagingAndSortingRepository<Unidade, Long> {
+	
+	Page<Unidade> findAll(Pageable pageable);
 
 	List<Unidade> findByNome(String nome);
 
@@ -38,7 +45,8 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 			+ " m.nr_mun = :cidade OR "
 			+ " u.nr_tip_und = :tipo OR "
 			+ " uf.nr_und_fdrl = :estadoId OR "
-			+ " u.nm_rsp_und = :responsavel and u.in_est_und_atv = :ativo", nativeQuery = true)
+			+ " u.nm_rsp_und = :responsavel and u.in_est_und_atv = :ativo"
+			+ " ORDER BY u.nm_und ", nativeQuery = true)
 	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, 

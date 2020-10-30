@@ -6,6 +6,11 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +28,7 @@ import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.TipoUnidade;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.EstadoRepository;
+import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -38,6 +45,9 @@ public class UnidadeController {
 	private CadastroUnidadeService cadastroComRegraUnidade;
 	
 	@Autowired
+	private UnidadeRepository unidadeRepository;
+	
+	@Autowired
 	private EstadoRepository estadoRepository;
 
 	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
@@ -47,10 +57,26 @@ public class UnidadeController {
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
+	
+	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
+	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
+	@GetMapping(produces = { "application/json" }, path = "/pesquisarPaginada")
+	@ResponseStatus(HttpStatus.OK)
+	public Page<Unidade> listarTodosPaginado(@RequestParam(value="page", defaultValue = "0") int page,
+			@RequestParam(value="limit", defaultValue = "10") int limit,
+			@RequestParam(value="ordernarPor", defaultValue = "nome") String ordernarPor,	
+			@RequestParam(value="direction", defaultValue = "asc") String direction) {
+		Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordernarPor));
+		
+		
+		Page<Unidade> unidadeLista = unidadeRepository.findAll(pageable);
+		
+		return unidadeLista;
+	}
 
 	@ApiOperation(value = "Busca Por parametros", produces = "application/json", 
 			consumes = "application/json")
-	
 	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", 
 	response = Unidade.class)
 		@GetMapping(produces = { "application/json" }, 
