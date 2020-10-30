@@ -3,6 +3,8 @@ package com.cobras.controle.domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.query.Param;
+
 import com.cobras.controle.domain.model.Unidade;
 
 public interface CadastroUnidadeService {
@@ -33,4 +35,8 @@ public interface CadastroUnidadeService {
 
 	public Unidade alterar(Unidade unidade);
 
+	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
+			@Param("nome") String nome, @Param("responsavel")  String responsavel,
+			@Param("ativo") char ativo
+			);
 }

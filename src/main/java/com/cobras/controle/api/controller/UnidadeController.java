@@ -34,8 +34,7 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
-	@ApiOperation(value = "Listar Todas Unidades",
-			produces = "application/json")
+	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
@@ -47,23 +46,23 @@ public class UnidadeController {
 			consumes = "application/json")
 	
 	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", 
-					response = Unidade.class)
-	@GetMapping(produces = { "application/json" }, 
+	response = Unidade.class)
+		@GetMapping(produces = { "application/json" }, 
 		consumes = { "application/json" }, path = "/pesquisar")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
+		@ResponseStatus(HttpStatus.OK)
+		public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
 		if (unidade.isPresent()) {
 			Unidade unid = unidade.get();
 			String codigo = unid.getCodigo();
 			String nome = unid.getNome();
-			Long cidade = unid.getCidade();
-			
 			String responsavel = unid.getResponsavel();
 			char ativo = unid.getAtivo();
-			return cadastroComRegraUnidade.findByCodigoAndNomeAndResponsavelAndAtivo(codigo, nome, responsavel, ativo);
+			List<Unidade> listaDTO = cadastroComRegraUnidade
+					.findByListaParametros(codigo, nome, responsavel, ativo);
+			return listaDTO;
 		}
 		return cadastroComRegraUnidade.findAll();
-	}
+}
 
 	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")

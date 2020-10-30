@@ -87,4 +87,10 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.existsById(id);
 	}
 
+	@Override
+	public List<Unidade> findByListaParametros(String codigo, String nome, 
+			String responsavel, char ativo) {
+		return unidadeRepository.findByListaParametros(codigo, nome, responsavel, ativo);
+	}
+
 }
