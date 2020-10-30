@@ -58,7 +58,7 @@ public class UnidadeController {
 		return cadastroComRegraUnidade.findAll();
 	}
 	
-	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao", produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" }, path = "/pesquisarPaginada")
 	@ResponseStatus(HttpStatus.OK)
