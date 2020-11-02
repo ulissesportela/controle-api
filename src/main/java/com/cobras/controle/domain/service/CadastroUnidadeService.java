@@ -37,12 +37,16 @@ public interface CadastroUnidadeService {
 	public Unidade alterar(Unidade unidade);
 	
 	Page<Unidade> findAll(Pageable pageable);
+	
+	Page<Unidade> buscar(Unidade unidade);
 
 	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, @Param("tipo") Integer tipo, Long estadoId);
 
+	Page<Unidade> buscar(Unidade unidade, Pageable page);
+
 	
-	List<Unidade> buscar(Unidade unidade);
+	//List<Unidade> buscar(Unidade unidade);
 
 }

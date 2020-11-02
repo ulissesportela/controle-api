@@ -1,6 +1,5 @@
 package com.cobras.controle.api.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -43,65 +42,92 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
-	@Autowired
-	private EstadoRepository estadoRepository;
-
-	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
-	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json" })
-	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> listar() {
-		return cadastroComRegraUnidade.findAll();
-	}
+//	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
+//	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
+//	@GetMapping(produces = { "application/json" })
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> listar() {
+//		return cadastroComRegraUnidade.findAll();
+//	}
 
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json" }, path = "/pesquisarPaginada")
+	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	public Page<Unidade> listarTodosPaginado(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(value = "ordernarPor", defaultValue = "nome") String ordernarPor,
-			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
+			@RequestParam(value = "direction", defaultValue = "asc") String direction,
+			@RequestBody(required = false) Unidade unidade) {
 		Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordernarPor));
-		return cadastroComRegraUnidade.findAll(pageable);
+		
+		Unidade unidade2 = new Unidade();
+		unidade2.setCidade(new Municipio());
+		unidade2.getCidade().setEstado(new Estado());
+		
+		if(unidade.getCodigo() != null) {
+			unidade2.setCodigo(unidade.getCodigo());
+		}
+
+		if(unidade.getNome() != null) {
+			unidade2.setNome(unidade.getNome());
+		}
+		if(unidade.getCidade().getId() != null) {
+			unidade2.setCidade(unidade.getCidade());
+		}
+		if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
+			unidade2.setResponsavel(null);
+		}
+		if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
+			unidade2.setResponsavel(unidade.getResponsavel());
+		}
+		if(unidade.getAtivo() != null) {
+			unidade2.setAtivo(unidade.getAtivo());
+		}
+		if(unidade.getCidade().getEstado() != null) {
+			unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+		}
+
+		return cadastroComRegraUnidade.buscar(unidade2, pageable);
+		//return cadastroComRegraUnidade.findAll(pageable);
 	}
 	
 	
-	@GetMapping(
-	path = "/pesquisar")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> pesquisaParametrizada(
-			@RequestBody(required = false) Unidade unidade) {
-			Unidade unidade2 = new Unidade();
-			unidade2.setCidade(new Municipio());
-			unidade2.getCidade().setEstado(new Estado());
-			
-			if(unidade.getCodigo() != null) {
-				unidade2.setCodigo(unidade.getCodigo());
-			}
-
-			if(unidade.getNome() != null) {
-				unidade2.setNome(unidade.getNome());
-			}
-			if(unidade.getCidade().getId() != null) {
-				unidade2.setCidade(unidade.getCidade());
-			}
-			if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
-				unidade2.setResponsavel(null);
-			}
-			if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
-				unidade2.setResponsavel(unidade.getResponsavel());
-			}
-			if(unidade.getAtivo() != null) {
-				unidade2.setAtivo(unidade.getAtivo());
-			}
-			if(unidade.getCidade().getEstado() != null) {
-				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
-			}
-
-			return cadastroComRegraUnidade.buscar(unidade2);
-		}
+//	@GetMapping(
+//	path = "/pesquisar")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> pesquisaParametrizada(
+//			@RequestBody(required = false) Unidade unidade) {
+//			Unidade unidade2 = new Unidade();
+//			unidade2.setCidade(new Municipio());
+//			unidade2.getCidade().setEstado(new Estado());
+//			
+//			if(unidade.getCodigo() != null) {
+//				unidade2.setCodigo(unidade.getCodigo());
+//			}
+//
+//			if(unidade.getNome() != null) {
+//				unidade2.setNome(unidade.getNome());
+//			}
+//			if(unidade.getCidade().getId() != null) {
+//				unidade2.setCidade(unidade.getCidade());
+//			}
+//			if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
+//				unidade2.setResponsavel(null);
+//			}
+//			if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
+//				unidade2.setResponsavel(unidade.getResponsavel());
+//			}
+//			if(unidade.getAtivo() != null) {
+//				unidade2.setAtivo(unidade.getAtivo());
+//			}
+//			if(unidade.getCidade().getEstado() != null) {
+//				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+//			}
+//
+//			return cadastroComRegraUnidade.buscar(unidade2);
+//		}
 		
 	
 
