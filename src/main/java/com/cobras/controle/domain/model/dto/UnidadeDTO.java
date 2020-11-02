@@ -1,17 +1,14 @@
 package com.cobras.controle.domain.model.dto;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.Municipio;
-import com.cobras.controle.domain.model.TipoUnidade;
+import com.cobras.controle.domain.model.TipoUnidadeEnum;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UnidadeDTO {
 
 	private Long unidadeId;
@@ -29,9 +26,8 @@ public class UnidadeDTO {
 	private String justificativa;
 
 	private String telefone;
-
 	
-	private TipoUnidade tipo;
+	private TipoUnidadeEnum tipo;
 	
 	private Municipio municipio;
 	

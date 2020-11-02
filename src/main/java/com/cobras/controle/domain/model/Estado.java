@@ -1,12 +1,15 @@
 package com.cobras.controle.domain.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -38,4 +41,6 @@ public class Estado implements Serializable {
 	@Column(name = "sg_und_fdrl")
     private String sigla;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
+	List<Municipio> municipioLista;
 }

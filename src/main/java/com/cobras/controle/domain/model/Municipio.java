@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -43,9 +45,8 @@ public class Municipio implements Serializable {
 	@Max(value = 50)
 	private String nome;
 	
+	@ManyToOne
+	@JoinColumn(name="nr_und_fdrl")
+	private Estado estado;
 	
-	@NotNull
-	@Column(name="nr_und_fdrl")
-	//FK tabela Cidade
-	private Long estado;
 }

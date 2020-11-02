@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -52,7 +54,7 @@ public class Unidade implements Serializable  {
 
 	@Column(name = "in_est_und_atv")
 	// 1 = Sim 0 = Nao
-	private char ativo;
+	private String ativo;
 	
 	@Size(max = 100)
 	@Column(name = "nm_rsp_und")
@@ -80,19 +82,15 @@ public class Unidade implements Serializable  {
 	@Column(name = "tx_tel_und")
 	// Telefone da Unidade
 	private String telefone;
-
-	@NotNull
-	@Column(name="nr_mun")
-	//FK tabela Cidade
-	private Long cidade;
 	
 	@NotNull
 	@Column(name = "nr_tip_und")
 	@Enumerated(EnumType.ORDINAL)
 	// PK tabela Tipo Unidade
-	private TipoUnidade tipo;
+	private TipoUnidadeEnum tipo;
 	
-	@Transient
-	private Long estado;
+	@ManyToOne
+	@JoinColumn(name="nr_mun")
+	private Municipio cidade;
 
 }

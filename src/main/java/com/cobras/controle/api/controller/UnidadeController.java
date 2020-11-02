@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Estado;
-import com.cobras.controle.domain.model.TipoUnidade;
+import com.cobras.controle.domain.model.Municipio;
+import com.cobras.controle.domain.model.TipoUnidadeEnum;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.EstadoRepository;
-import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -43,72 +43,95 @@ public class UnidadeController {
 
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
-	
-	@Autowired
-	private UnidadeRepository unidadeRepository;
-	
+
 	@Autowired
 	private EstadoRepository estadoRepository;
 
 	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"})
+	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> listar() {
 		return cadastroComRegraUnidade.findAll();
 	}
-	
+
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
-	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
-	path = "/pesquisarPaginada")
+	@GetMapping(produces = { "application/json" }, path = "/pesquisarPaginada")
 	@ResponseStatus(HttpStatus.OK)
-	public Page<Unidade> listarTodosPaginado(@RequestParam(value="page", defaultValue = "0") int page,
-			@RequestParam(value="limit", defaultValue = "10") int limit,
-			@RequestParam(value="ordernarPor", defaultValue = "nome") String ordernarPor,	
-			@RequestParam(value="direction", defaultValue = "asc") String direction) {
+	public Page<Unidade> listarTodosPaginado(@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "limit", defaultValue = "10") int limit,
+			@RequestParam(value = "ordernarPor", defaultValue = "nome") String ordernarPor,
+			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
 		Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordernarPor));
-		Page<Unidade> unidadeLista = unidadeRepository.findAll(pageable);
-		return unidadeLista;
+		return cadastroComRegraUnidade.findAll(pageable);
 	}
-
-	@ApiOperation(value = "Busca Por parametros")
-	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", 
-	response = Unidade.class)
-		@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
-		consumes = { "application/json", "application/xml", "application/x-yaml"}, path = "/pesquisar")
-		@ResponseStatus(HttpStatus.OK)
-		public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
-		if (unidade.isPresent()) {
-			Unidade unid = unidade.get();
+	
+	
+	@GetMapping(
+	path = "/pesquisar")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Unidade> pesquisaParametrizada(
+			@RequestBody(required = false) Unidade unidade) {
+			Unidade unidade2 = new Unidade();
+			unidade2.setCidade(new Municipio());
+			unidade2.getCidade().setEstado(new Estado());
 			
-			String codigo = unid.getCodigo();
-			String nome = unid.getNome();
-			String responsavel = unid.getResponsavel();
-			char ativo = unid.getAtivo();
-			Long cidade = unid.getCidade();
-			Long estadoId = 0L;
-			Long estadoRep = unid.getEstado();
-			Optional<Estado> estado = estadoRepository.findById(estadoRep);
-			if(estado.isPresent()) {
-				Estado est = estado.get();
-				estadoId = est.getId();
+			if(unidade.getCodigo() != null) {
+				unidade2.setCodigo(unidade.getCodigo());
 			}
-			
-			TipoUnidade tipo = unid.getTipo();
-			System.out.println(estadoId);
-			System.out.println(unid.toString());
-			List<Unidade> listaDTO = cadastroComRegraUnidade
-					.findByListaParametros(codigo, nome, responsavel, ativo,cidade,tipo.getValor(), estadoId);
-			return listaDTO;
+
+			if(unidade.getNome() != null) {
+				unidade2.setNome(unidade.getNome());
+			}
+			if(unidade.getCidade().getId() != null) {
+				unidade2.setCidade(unidade.getCidade());
+			}
+			if(unidade.getResponsavel() != null) {
+				unidade2.setResponsavel(unidade.getResponsavel());
+			}
+			if(unidade.getAtivo() != null) {
+				unidade2.setAtivo(unidade.getAtivo());
+			}
+			if(unidade.getCidade().getEstado() != null) {
+				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+			}
+
+			return cadastroComRegraUnidade.buscar(unidade2);
 		}
-		return cadastroComRegraUnidade.findAll();
-}
+		
+	
+
+//	@ApiOperation(value = "Busca Por parametros")
+//	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", response = Unidade.class)
+//	@GetMapping(produces = { "application/json" }, consumes = { "application/json" }, path = "/pesquisar")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
+//		if (unidade.isPresent()) {
+//			Unidade unid = unidade.get();
+//
+//			String codigo = unid.getCodigo();
+//			String nome = unid.getNome();
+//			String responsavel = unid.getResponsavel();
+//			char ativo = unid.getAtivo();
+//			Long cidade = unid.getCidade();
+//			Long estadoId = 0L;
+//			Long estadoRep = unid.getEstado();
+//			Optional<Estado> estado = estadoRepository.findById(estadoRep);
+//			if (estado.isPresent()) {
+//				Estado est = estado.get();
+//				estadoId = est.getId();
+//			}
+//			TipoUnidadeEnum tipo = unid.getTipo();
+//			return cadastroComRegraUnidade.findByListaParametros(codigo, nome, responsavel, ativo, cidade,
+//					tipo.getValor(), estadoId);
+//		}
+//		return cadastroComRegraUnidade.findAll();
+//	}
 
 	@ApiOperation("Busca a Unidade por ID")
-	@GetMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
-	path = "/{unidadeId}")
+	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> buscar(@PathVariable Long unidadeId) {
 		Optional<Unidade> unidade = cadastroComRegraUnidade.findById(unidadeId);
@@ -119,17 +142,15 @@ public class UnidadeController {
 	}
 
 	@ApiOperation("Incluir uma Unidade")
-	@PostMapping(produces = { "application/json", "application/xml", "application/x-yaml"}, 
-	consumes = { "application/json" })
+	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
+		
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
 	@ApiOperation("Alterar uma Unidade Já existente")
-	@PutMapping(path = "/{unidadeId}", 
-	consumes = { "application/json", "application/xml", "application/x-yaml"}, 
-	produces = { "application/json", "application/xml", "application/x-yaml"})
+	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
 		// Verifica se a Unidade existe

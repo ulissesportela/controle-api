@@ -28,6 +28,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
 	
+	
+	List<ResponseMessage> mensagemGlobal = new ArrayList<>();
+	
 	@Primary
 	@Bean
 	public LinkDiscoverers discoverers() {
@@ -38,15 +41,14 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	
 	@Bean
 	public Docket productApi() {
-		Docket docket= new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.cobras.controle.api.controller"))
 				.paths(PathSelectors.any()).build().apiInfo(metaData())
-				.globalResponseMessage(RequestMethod.PUT, mensagemGlobal())
-		        .globalResponseMessage(RequestMethod.GET, mensagemGlobal())
-		        .globalResponseMessage(RequestMethod.DELETE, mensagemGlobal())
-		        .globalResponseMessage(RequestMethod.GET, mensagemGlobal());
-		return docket;
+				.globalResponseMessage(RequestMethod.PUT, getMensagemGlobal())
+		        .globalResponseMessage(RequestMethod.GET, getMensagemGlobal())
+		        .globalResponseMessage(RequestMethod.DELETE, getMensagemGlobal())
+		        .globalResponseMessage(RequestMethod.GET, getMensagemGlobal());
 	}
 
 	private ApiInfo metaData() {
@@ -70,9 +72,10 @@ public class SwaggerConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
-	private List<ResponseMessage> mensagemGlobal()
-	{
-	    return new ArrayList<ResponseMessage>() {{
+	
+	
+	public List<ResponseMessage> getMensagemGlobal() {
+		return new ArrayList<ResponseMessage>() {{
 	        add(new ResponseMessageBuilder()
 	            .code(500)
 	            .message("Erro Interno do Servidor")
@@ -91,5 +94,4 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	            .build());
 	    }};
 	}
-
 }

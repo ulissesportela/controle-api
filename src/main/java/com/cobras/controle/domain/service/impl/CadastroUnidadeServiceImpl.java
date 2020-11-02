@@ -1,10 +1,17 @@
 package com.cobras.controle.domain.service.impl;
 
 import java.util.List;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cobras.controle.domain.exception.NegocioException;
 import com.cobras.controle.domain.model.Unidade;
@@ -92,6 +99,21 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			String responsavel, char ativo, Long cidade, Integer tipo, Long estadoId) {
 		return unidadeRepository.findByListaParametros(codigo, nome, responsavel, 
 				ativo, cidade, tipo, estadoId);
+	}
+
+	@Override
+	public Page<Unidade> findAll(Pageable pageable) {
+		return unidadeRepository.findAll(pageable);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Unidade> buscar(Unidade unidade) {
+		Example example = Example.of( unidade, 
+				ExampleMatcher.matching()
+					.withIgnoreCase()
+					.withStringMatcher(StringMatcher.CONTAINING) );
+		return unidadeRepository.findAll(example);
 	}
 
 }

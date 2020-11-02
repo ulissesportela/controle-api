@@ -44,8 +44,7 @@ class CadastroUnidadeServiceImplTest {
 	@Test
 	void deveBuscarUnidadePorId() {
 		Optional<Unidade> entidade = unidadeRepository.findById(1L);
-		assertThat(entidade).isPresent();
-		assertThat(entidade).isNotNull();
+		assertThat(entidade).isPresent().isNotNull();
 	}
 
 	@Test
