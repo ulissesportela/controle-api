@@ -41,6 +41,4 @@ public class Estado implements Serializable {
 	@Column(name = "sg_und_fdrl")
     private String sigla;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
-	List<Municipio> municipioLista;
 }
