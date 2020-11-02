@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.Municipio;
-import com.cobras.controle.domain.model.TipoUnidadeEnum;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.EstadoRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
