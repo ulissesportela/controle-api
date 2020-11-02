@@ -43,6 +43,6 @@ public interface CadastroUnidadeService {
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, @Param("tipo") Integer tipo, Long estadoId);
 
 	
-	List<Unidade> buscar(Unidade unidade, Pageable page);
+	List<Unidade> buscar(Unidade unidade);
 
 }
