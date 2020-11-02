@@ -88,7 +88,10 @@ public class UnidadeController {
 			if(unidade.getCidade().getId() != null) {
 				unidade2.setCidade(unidade.getCidade());
 			}
-			if(unidade.getResponsavel() != null) {
+			if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
+				unidade2.setResponsavel(null);
+			}
+			if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
 				unidade2.setResponsavel(unidade.getResponsavel());
 			}
 			if(unidade.getAtivo() != null) {
