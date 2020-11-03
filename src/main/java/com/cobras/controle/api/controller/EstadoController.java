@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Estado;
-import com.cobras.controle.domain.model.Municipio;
 import com.cobras.controle.domain.model.dto.MunicipioDTO;
 import com.cobras.controle.domain.repository.EstadoRepository;
-import com.cobras.controle.domain.repository.MunicipioRepository;
 import com.cobras.controle.domain.service.MunicipioService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @Api(tags = "Endpoint de Estados")
 @RestController
@@ -30,9 +27,6 @@ public class EstadoController {
 	@Autowired
 	private EstadoRepository estadoRepository;
 
-	@Autowired
-	private MunicipioRepository municipioRepository;
-	
 	@Autowired
 	private MunicipioService municipioService;
 
@@ -47,7 +41,6 @@ public class EstadoController {
 	@GetMapping(produces = { "application/json"}, path="/{id}/municipios")
 	@ResponseStatus(HttpStatus.OK)
 	public List<MunicipioDTO> listarMunicipios(@PathVariable Long id) {
-		List<MunicipioDTO> municipioLista = municipioService.findByEstadoId(id);
-		return municipioLista;
+		return municipioService.findByEstadoId(id);
 	}
 }

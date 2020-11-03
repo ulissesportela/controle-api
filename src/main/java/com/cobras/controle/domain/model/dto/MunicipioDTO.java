@@ -1,13 +1,10 @@
 package com.cobras.controle.domain.model.dto;
 
-import javax.persistence.Column;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-
 public class MunicipioDTO {
 
 	private Long id;
@@ -39,8 +36,4 @@ public class MunicipioDTO {
 		this.siglaEstado = siglaEstado;
 	}
 
-	
-	
-	
-	
 }

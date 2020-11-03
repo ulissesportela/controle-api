@@ -5,11 +5,6 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.hateoas.client.LinkDiscoverer;
-import org.springframework.hateoas.client.LinkDiscoverers;
-import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
-import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,14 +25,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	
 	
 	List<ResponseMessage> mensagemGlobal = new ArrayList<>();
-	
-	@Primary
-	@Bean
-	public LinkDiscoverers discoverers() {
-	    List<LinkDiscoverer> plugins = new ArrayList<>();
-	    plugins.add(new CollectionJsonLinkDiscoverer());
-	    return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
-	}
 	
 	@Bean
 	public Docket productApi() {

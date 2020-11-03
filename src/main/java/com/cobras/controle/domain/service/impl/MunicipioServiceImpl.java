@@ -11,17 +11,14 @@ import com.cobras.controle.domain.service.MunicipioService;
 
 @Service
 public class MunicipioServiceImpl implements MunicipioService {
-	
+
 	@Autowired
 	private MunicipioRepository municipioRepository;
 
-	
 	@Override
 	public List<MunicipioDTO> findByEstadoId(Long id) {
 		return municipioRepository.findByEstadoId(id);
-		
+
 	}
-	
-	
 
 }

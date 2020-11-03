@@ -1,5 +1,8 @@
 package com.cobras.controle.domain.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,21 +26,44 @@ class UnidadeTest {
 	@Autowired
 	UnidadeController unidadeController;
 	
-//	@Test
-//	void deveValidarCampos() {
-//		Unidade unidade = new Unidade();
-//		unidade.setId(1L);
-//		unidade.setNome("Nome da unidade");
-//		unidade.setCodigo("12");
-//		unidade.setTipoUnidade(TipoUnidade.MATRIZ);
-//		unidade.setCidade(1L);
-//		unidade.setEmail("teste@gmail.com");
-//		unidade.setTelefone("12345123");
-//		unidade.setAtivo(1L);
-//		unidade.setJustificativa("Just");
-//		unidade.setResponsavel("Responsavel");
-//		
-//	}
+	@Test
+	void deveValidarCampos() {
+		Estado estado = Estado.builder()
+				.id(1L)
+				.codigo("001")
+				.nome("Distrito Federal")
+				.sigla("DF").build();
+				
+		Municipio cidade = Municipio.builder()
+				.id(1L)
+				.codigo("001")
+				.codigoCompleto("001")
+				.nome("Cidade").estado(estado).build();
+		Unidade unidade = Unidade.builder()
+				.id(1L)
+				.nome("Nome da unidade")
+				.codigo("12")
+				.email("teste@gmail.com")
+				.telefone("12345123")
+				.ativo("1")
+				.justificativa("Just")
+				.responsavel("Responsavel")
+				.tipo(TipoUnidadeEnum.MATRIZ)
+				.cidade(cidade)
+				.build();
+
+		assertEquals(1L,unidade.getId());
+		assertEquals("Nome da unidade", unidade.getNome());
+		assertEquals("12", unidade.getCodigo());
+		assertEquals(TipoUnidadeEnum.MATRIZ, unidade.getTipo());
+		assertEquals("teste@gmail.com", unidade.getEmail());
+		assertEquals("12345123", unidade.getTelefone());
+		assertEquals("1", unidade.getAtivo());
+		assertEquals("Just", unidade.getJustificativa());
+		assertEquals("Responsavel", unidade.getResponsavel());
+		
+		assertEquals(true, unidade.equals(unidade));
+	}
 	
 //	@Test
 //	void deveRetornarCertoValor() {
