@@ -106,30 +106,25 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findAll(pageable);
 	}
 
-//	@Override
-//	@Transactional(readOnly = true)
-//	public List<Unidade> buscar(Unidade unidade) {
-//		Example example = Example.of( unidade, 
-//				ExampleMatcher.matching()
-//					.withIgnoreCase()
-//					.withStringMatcher(StringMatcher.CONTAINING) );
-//		return unidadeRepository.findAll(example);
-//	}
-//	
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Unidade> buscar(Unidade unidade, Pageable page) {
+	public List<Unidade> buscar(Unidade unidade) {
 		Example example = Example.of( unidade, 
 				ExampleMatcher.matching()
 					.withIgnoreCase()
 					.withStringMatcher(StringMatcher.CONTAINING) );
-		return unidadeRepository.findAll(example, page);
+		return unidadeRepository.findAll(example);
 	}
+	
+//	@Override
+//	@Transactional(readOnly = true)
+//	public Page<Unidade> buscar(Unidade unidade, Pageable page) {
+//		Example example = Example.of( unidade, 
+//				ExampleMatcher.matching()
+//					.withIgnoreCase()
+//					.withStringMatcher(StringMatcher.CONTAINING) );
+//		return unidadeRepository.findAll(example, page);
+//	}
 
-	@Override
-	public Page<Unidade> buscar(Unidade unidade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
