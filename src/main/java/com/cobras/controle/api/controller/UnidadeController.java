@@ -57,11 +57,11 @@ public class UnidadeController {
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public Unidade incluir(@RequestBody Unidade unidade) {
+	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
-	@ApiOperation("Alterar uma Unidade Já existente")
+	@ApiOperation("Alterar uma Unidade Ja existente")
 	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 

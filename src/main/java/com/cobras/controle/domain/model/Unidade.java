@@ -16,8 +16,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,7 +82,6 @@ public class Unidade implements Serializable  {
 
 	@Size(max = 11)
 	@Column(name = "tx_tel_und")
-	@Positive
 	// Telefone da Unidade
 	private String telefone;
 	
