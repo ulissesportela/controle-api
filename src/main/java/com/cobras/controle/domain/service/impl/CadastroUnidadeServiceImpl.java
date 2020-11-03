@@ -28,10 +28,11 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	public Unidade incluir(Unidade unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 
+
 		if (unidadeExistente != null) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
 		}
-
+		unidade.setTelefone(unidade.getTelefone().replaceAll("[\\s()-]", "").replace(" ", "").trim());
 		return unidadeRepository.save(unidade);
 	}
 
@@ -39,6 +40,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 		if (unidadeExistente != null && !unidadeExistente.getId().equals(unidade.getId())) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
+		}
+		if(unidade.getTelefone() != null) {
+			unidade.setTelefone(unidade.getTelefone().replaceAll("[\\s()-]", "").replace(" ", "").trim());
 		}
 		return unidadeRepository.save(unidade);
 	}

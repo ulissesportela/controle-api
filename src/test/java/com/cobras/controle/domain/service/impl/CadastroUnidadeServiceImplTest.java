@@ -45,8 +45,6 @@ class CadastroUnidadeServiceImplTest {
 //		assertThat(listaUnidades).isNotNull();
 //	}
 //
-//	
-//	
 //	@Test
 //	void findAllRepository() {
 //		List<Unidade> unidadeLista = unidadeRepository.findAll();
@@ -108,34 +106,34 @@ class CadastroUnidadeServiceImplTest {
 //				.cidade(cidade)
 //				.build();
 //		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
-//		assertEquals(14, unidadeLista.size());
+//		assertEquals(16, unidadeLista.size());
 //	}
-//	
-//	@Test
-//	void deveBuscarUnidadePorId() {
-//		Optional<Unidade> entidade = unidadeRepository.findById(1L);
-//		assertThat(entidade).isPresent().isNotNull();
-//	}
-//
-//	@Test
-//	void naoDeveBuscarUnidadePorId() {
-//		Optional<Unidade> entidade = unidadeRepository.findById(12300L);
-//		assertThat(entidade).isEmpty();
-//	}
-//
-//	@Test
-//	void controllerBuscaNaService() {
-//		ResponseEntity<Unidade> unidade = unidadeController.buscar(1L);
-//		assertThat(unidade).isNotNull();
-//	}
-//
-//	
-//	@Test
-//	void NaoDevecontrollerBuscaNaService() {
-//		ResponseEntity<Unidade> unidade = unidadeController.buscar(12300L);
-//		assertThat(unidade).isNotNull();
-//	}
-//	
+	
+	@Test
+	void deveBuscarUnidadePorId() {
+		Optional<Unidade> entidade = unidadeRepository.findById(1L);
+		assertThat(entidade).isPresent().isNotNull();
+	}
+
+	@Test
+	void naoDeveBuscarUnidadePorId() {
+		Optional<Unidade> entidade = unidadeRepository.findById(12300L);
+		assertThat(entidade).isEmpty();
+	}
+
+	@Test
+	void controllerBuscaNaService() {
+		ResponseEntity<Unidade> unidade = unidadeController.buscar(1L);
+		assertThat(unidade).isNotNull();
+	}
+
+	
+	@Test
+	void NaoDevecontrollerBuscaNaService() {
+		ResponseEntity<Unidade> unidade = unidadeController.buscar(12300L);
+		assertThat(unidade).isNotNull();
+	}
+	
 	
 //	@Test
 //	void deveAlterarUnidade() {

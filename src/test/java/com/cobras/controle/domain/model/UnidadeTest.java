@@ -57,5 +57,4 @@ class UnidadeTest {
 		assertEquals(true, unidade.equals(unidade));
 	}
 	
-	
 }

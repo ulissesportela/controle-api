@@ -34,7 +34,6 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
-
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" })
@@ -58,14 +57,15 @@ public class UnidadeController {
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
+	public Unidade incluir(@RequestBody Unidade unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
 	@ApiOperation("Alterar uma Unidade Já existente")
 	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, @RequestBody Unidade unidade) {
+	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
+			@RequestBody Unidade unidade) {
 		// Verifica se a Unidade existe
 		if (!cadastroComRegraUnidade.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();

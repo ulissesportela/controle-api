@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class MunicipioDTOTest {
+class MunicipioDTOTest {
 	
 	@Test
 	void deveMontarConstrutorParaConsulta() {
@@ -19,6 +19,7 @@ public class MunicipioDTOTest {
 						"nomeEstado", "DF");
 		assertEquals(1L, municipioDTO.getId());
 		assertEquals("001", municipioDTO.getCodigo());
+		assertEquals("nome", municipioDTO.getNome());
 		assertEquals("0001", municipioDTO.getCodigoCompleto());
 		assertEquals(1L, municipioDTO.getIdEstado());
 		assertEquals("001", municipioDTO.getCodigoEstado());
