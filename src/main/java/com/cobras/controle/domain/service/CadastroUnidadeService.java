@@ -24,8 +24,7 @@ public interface CadastroUnidadeService {
 	boolean existsById(Long id);
 
 	List<Unidade> findByCodigoAndNomeAndResponsavel(String codigo, 
-			String nome, String responsavel
-			);
+			String nome, String responsavel);
 
 	Optional<Unidade> findByCodigoAndNome(String codigo, String nome);
 
@@ -44,4 +43,9 @@ public interface CadastroUnidadeService {
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, @Param("tipo") Integer tipo, Long estadoId);
 
+
+	//Page<Unidade> buscar(Unidade unidade, Pageable page);
+
+	
+	//List<Unidade> buscar(Unidade unidade);
 }

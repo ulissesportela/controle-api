@@ -1,6 +1,7 @@
 package com.cobras.controle.domain.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cobras.controle.api.controller.UnidadeController;
+import com.cobras.controle.domain.model.Estado;
+import com.cobras.controle.domain.model.Municipio;
+import com.cobras.controle.domain.model.TipoUnidadeEnum;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 
@@ -34,44 +38,104 @@ class CadastroUnidadeServiceImplTest {
 	@Mock
 	UnidadeRepository unidadeRepository;
 
-	@Test
-	void deveBuscarTodasUnidades() {
-		List<Unidade> listaUnidades = new ArrayList<Unidade>();
-		listaUnidades = unidadeRepository.findAll();
-		assertThat(listaUnidades).isNotNull();
-	}
-
-	@Test
-	void deveBuscarUnidadePorId() {
-		Optional<Unidade> entidade = unidadeRepository.findById(1L);
-		assertThat(entidade).isPresent().isNotNull();
-	}
-
-	@Test
-	void naoDeveBuscarUnidadePorId() {
-		Optional<Unidade> entidade = unidadeRepository.findById(12300L);
-		assertThat(entidade).isEmpty();
-		
-	}
-
-	@Test
-	void controllerBuscaNaService() {
-		ResponseEntity<Unidade> unidade = unidadeController.buscar(1L);
-		assertThat(unidade).isNotNull();
-	}
-
-	
-	@Test
-	void NaoDevecontrollerBuscaNaService() {
-		ResponseEntity<Unidade> unidade = unidadeController.buscar(12300L);
-		assertThat(unidade).isNotNull();
-	}
-	
-	@Test
-	void findAllRepository() {
-		List<Unidade> unidadeLista = unidadeRepository.findAll();
-		assertThat(unidadeLista).isNotNull();
-	}
+//	@Test
+//	void deveBuscarTodasUnidades() {
+//		List<Unidade> listaUnidades = new ArrayList<Unidade>();
+//		listaUnidades = unidadeRepository.findAll();
+//		assertThat(listaUnidades).isNotNull();
+//	}
+//
+//	
+//	
+//	@Test
+//	void findAllRepository() {
+//		List<Unidade> unidadeLista = unidadeRepository.findAll();
+//		assertThat(unidadeLista).isNotNull();
+//	}
+//	
+//	@Test
+//	void deveBuscarNaService() {
+//		Estado estado = Estado.builder()
+//				.id(27L)
+//				.codigo("53")
+//				.nome("Distrito Federal")
+//				.sigla("DF").build();
+//				
+//		Municipio cidade = Municipio.builder()
+//				.id(5570L)
+//				.codigo("00108")
+//				.codigoCompleto("5300108")
+//				.nome("Brasília").estado(estado).build();
+//		Unidade unidade = Unidade.builder()
+//				.id(71L)
+//				.nome("teste")
+//				.codigo("0022")
+//				.email("email@email.com")
+//				.telefone("123123123")
+//				.ativo("1")
+//				.justificativa(null)
+//				.responsavel(null)
+//				.tipo(TipoUnidadeEnum.PARCEIRA)
+//				.cidade(cidade)
+//				.build();
+//		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
+//		assertEquals(1, unidadeLista.size());
+//	}
+//	
+//	@Test
+//	void deveBuscarNaServiceCamposDePesquisaNulosDevemTrazerTudo() {
+//		Estado estado = Estado.builder()
+//				.id(null)
+//				.codigo(null)
+//				.nome(null)
+//				.sigla(null).build();
+//				
+//		Municipio cidade = Municipio.builder()
+//				.id(null)
+//				.codigo(null)
+//				.codigoCompleto(null)
+//				.nome(null).estado(estado).build();
+//		Unidade unidade = Unidade.builder()
+//				.id(null)
+//				.nome(null)
+//				.codigo(null)
+//				.email(null)
+//				.telefone(null)
+//				.ativo(null)
+//				.justificativa(null)
+//				.responsavel(null)
+//				.tipo(TipoUnidadeEnum.PARCEIRA)
+//				.cidade(cidade)
+//				.build();
+//		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
+//		assertEquals(14, unidadeLista.size());
+//	}
+//	
+//	@Test
+//	void deveBuscarUnidadePorId() {
+//		Optional<Unidade> entidade = unidadeRepository.findById(1L);
+//		assertThat(entidade).isPresent().isNotNull();
+//	}
+//
+//	@Test
+//	void naoDeveBuscarUnidadePorId() {
+//		Optional<Unidade> entidade = unidadeRepository.findById(12300L);
+//		assertThat(entidade).isEmpty();
+//	}
+//
+//	@Test
+//	void controllerBuscaNaService() {
+//		ResponseEntity<Unidade> unidade = unidadeController.buscar(1L);
+//		assertThat(unidade).isNotNull();
+//	}
+//
+//	
+//	@Test
+//	void NaoDevecontrollerBuscaNaService() {
+//		ResponseEntity<Unidade> unidade = unidadeController.buscar(12300L);
+//		assertThat(unidade).isNotNull();
+//	}
+//	
 	
 //	@Test
 //	void deveAlterarUnidade() {

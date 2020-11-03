@@ -37,11 +37,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 
 	public Unidade alterar(Unidade unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
-
 		if (unidadeExistente != null && !unidadeExistente.getId().equals(unidade.getId())) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
 		}
-
 		return unidadeRepository.save(unidade);
 	}
 
@@ -142,5 +140,16 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 					.withStringMatcher(StringMatcher.CONTAINING) );
 		return unidadeRepository.findAll(example);
 	}
+	
+//	@Override
+//	@Transactional(readOnly = true)
+//	public Page<Unidade> buscar(Unidade unidade, Pageable page) {
+//		Example example = Example.of( unidade, 
+//				ExampleMatcher.matching()
+//					.withIgnoreCase()
+//					.withStringMatcher(StringMatcher.CONTAINING) );
+//		return unidadeRepository.findAll(example, page);
+//	}
+
 
 }

@@ -75,4 +75,121 @@ public class UnidadeController {
 		return ResponseEntity.ok(unidade);
 	}
 	
+	
+//	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+//	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
+//	@GetMapping(produces = { "application/json" })
+//	@ResponseStatus(HttpStatus.OK)
+//	public Page<Unidade> listarTodosPaginado(@RequestParam(value = "page", defaultValue = "0") int page,
+//			@RequestParam(value = "limit", defaultValue = "10") int limit,
+//			@RequestParam(value = "ordernarPor", defaultValue = "nome") String ordernarPor,
+//			@RequestParam(value = "direction", defaultValue = "asc") String direction,
+//			@RequestBody(required = false) Unidade unidade) {
+//		Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+//		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordernarPor));
+//		
+//		Unidade unidade2 = new Unidade();
+//		unidade2.setCidade(new Municipio());
+//		unidade2.getCidade().setEstado(new Estado());
+//		
+//		if(unidade.getCodigo() != null) {
+//			unidade2.setCodigo(unidade.getCodigo());
+//		}
+//
+//		if(unidade.getNome() != null) {
+//			unidade2.setNome(unidade.getNome());
+//		}
+//		if(unidade.getCidade().getId() != null) {
+//			unidade2.setCidade(unidade.getCidade());
+//		}
+//		if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
+//			unidade2.setResponsavel(null);
+//		}
+//		if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
+//			unidade2.setResponsavel(unidade.getResponsavel());
+//		}
+//		if(unidade.getAtivo() != null) {
+//			unidade2.setAtivo(unidade.getAtivo());
+//		}
+//		if(unidade.getCidade().getEstado() != null) {
+//			unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+//		}
+//
+//		return cadastroComRegraUnidade.buscar(unidade2, pageable);
+//		//return cadastroComRegraUnidade.findAll(pageable);
+//	}
+//	
+	
+
+//	@ApiOperation(value = "Listar Todas Unidades", produces = "application/json")
+//	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
+//	@GetMapping(produces = { "application/json" })
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> listar() {
+//		return cadastroComRegraUnidade.findAll();
+//	}
+	
+//	@GetMapping(
+//	path = "/pesquisar")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> pesquisaParametrizada(
+//			@RequestBody(required = false) Unidade unidade) {
+//			Unidade unidade2 = new Unidade();
+//			unidade2.setCidade(new Municipio());
+//			unidade2.getCidade().setEstado(new Estado());
+//			
+//			if(unidade.getCodigo() != null) {
+//				unidade2.setCodigo(unidade.getCodigo());
+//			}
+//
+//			if(unidade.getNome() != null) {
+//				unidade2.setNome(unidade.getNome());
+//			}
+//			if(unidade.getCidade().getId() != null) {
+//				unidade2.setCidade(unidade.getCidade());
+//			}
+//			if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
+//				unidade2.setResponsavel(null);
+//			}
+//			if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
+//				unidade2.setResponsavel(unidade.getResponsavel());
+//			}
+//			if(unidade.getAtivo() != null) {
+//				unidade2.setAtivo(unidade.getAtivo());
+//			}
+//			if(unidade.getCidade().getEstado() != null) {
+//				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+//			}
+//
+//			return cadastroComRegraUnidade.buscar(unidade2);
+//		}
+		
+	
+
+//	@ApiOperation(value = "Busca Por parametros")
+//	@ApiResponse(code = 200, message = "Retornado as Unidades com os parametros encontrados", response = Unidade.class)
+//	@GetMapping(produces = { "application/json" }, consumes = { "application/json" }, path = "/pesquisar")
+//	@ResponseStatus(HttpStatus.OK)
+//	public List<Unidade> pesquisaParametrizada(@RequestBody(required = false) Optional<Unidade> unidade) {
+//		if (unidade.isPresent()) {
+//			Unidade unid = unidade.get();
+//
+//			String codigo = unid.getCodigo();
+//			String nome = unid.getNome();
+//			String responsavel = unid.getResponsavel();
+//			char ativo = unid.getAtivo();
+//			Long cidade = unid.getCidade();
+//			Long estadoId = 0L;
+//			Long estadoRep = unid.getEstado();
+//			Optional<Estado> estado = estadoRepository.findById(estadoRep);
+//			if (estado.isPresent()) {
+//				Estado est = estado.get();
+//				estadoId = est.getId();
+//			}
+//			TipoUnidadeEnum tipo = unid.getTipo();
+//			return cadastroComRegraUnidade.findByListaParametros(codigo, nome, responsavel, ativo, cidade,
+//					tipo.getValor(), estadoId);
+//		}
+//		return cadastroComRegraUnidade.findAll();
+//	}
 }

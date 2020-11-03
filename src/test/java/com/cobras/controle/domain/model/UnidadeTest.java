@@ -4,27 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import com.cobras.controle.api.controller.UnidadeController;
-import com.cobras.controle.domain.repository.UnidadeRepository;
-import com.cobras.controle.domain.service.impl.CadastroUnidadeServiceImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class UnidadeTest {
-	
-	
-	@Autowired
-	UnidadeRepository unidadeRepository;
-	
-	@Autowired
-	CadastroUnidadeServiceImpl serviceImpl;
-	
-	@Autowired
-	UnidadeController unidadeController;
 	
 	@Test
 	void deveValidarCampos() {
@@ -61,22 +46,16 @@ class UnidadeTest {
 		assertEquals("1", unidade.getAtivo());
 		assertEquals("Just", unidade.getJustificativa());
 		assertEquals("Responsavel", unidade.getResponsavel());
-		
+		assertEquals(1L, unidade.getCidade().getId());
+		assertEquals("001", unidade.getCidade().getCodigo());
+		assertEquals("001", unidade.getCidade().getCodigoCompleto());
+		assertEquals("Cidade", unidade.getCidade().getNome());
+		assertEquals(1L, unidade.getCidade().getEstado().getId());
+		assertEquals("001", unidade.getCidade().getEstado().getCodigo());
+		assertEquals("Distrito Federal", unidade.getCidade().getEstado().getNome());
+		assertEquals("DF", unidade.getCidade().getEstado().getSigla());
 		assertEquals(true, unidade.equals(unidade));
 	}
 	
-//	@Test
-//	void deveRetornarCertoValor() {
-//
-//		Optional<Unidade> unidadeRetornada = unidadeRepository.findById(1L);
-//		System.out.println("UnidadeRetornada Optional" + unidadeRetornada.get());
-//		System.out.println("UnidadeRetornada Optional" + unidadeRetornada.get());
-//		System.out.println(unidadeRetornada.toString() + " Optinal to String");
-//		assertEquals(unidadeRetornada.getId(), 1L);
-//		assertEquals(unidadeRetornada.getNome(), "Nome Unidade");
-//		assertEquals(unidadeRetornada.getCodigo(), "350");
-//		assertEquals(unidadeRetornada.getEmail(), "email@email.com");
-//		assertEquals(unidadeRetornada.getTelefone(), "123123123");		
-//	}
 	
 }

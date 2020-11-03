@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.dto.MunicipioDTO;
-import com.cobras.controle.domain.repository.EstadoRepository;
+import com.cobras.controle.domain.service.EstadoService;
 import com.cobras.controle.domain.service.MunicipioService;
 
 import io.swagger.annotations.Api;
@@ -23,9 +23,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/estados")
 public class EstadoController {
 
-	
 	@Autowired
-	private EstadoRepository estadoRepository;
+	private EstadoService estadoService;
 
 	@Autowired
 	private MunicipioService municipioService;
@@ -34,7 +33,7 @@ public class EstadoController {
 	@GetMapping(produces = { "application/json"})
 	@ResponseStatus(HttpStatus.OK)
 	public List<Estado> listar() {
-		return estadoRepository.findAll();
+		return estadoService.findAll();
 	}
 
 	@ApiOperation("Listar Todos os municipios a partir do Id do Estado informado")

@@ -1,6 +1,5 @@
 package com.cobras.controle.domain.model.dto;
 
-import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.Municipio;
 import com.cobras.controle.domain.model.TipoUnidadeEnum;
 
@@ -15,7 +14,7 @@ public class UnidadeDTO {
 
 	private String codigo;
 	
-	private char ativo;
+	private String ativo;
 	
 	private String responsavel;
 	
@@ -29,7 +28,6 @@ public class UnidadeDTO {
 	
 	private TipoUnidadeEnum tipo;
 	
-	private Municipio municipio;
+	private Municipio cidade;
 	
-	private Estado estado;
 }

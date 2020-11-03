@@ -18,7 +18,6 @@ public class MunicipioServiceImpl implements MunicipioService {
 	@Override
 	public List<MunicipioDTO> findByEstadoId(Long id) {
 		return municipioRepository.findByEstadoId(id);
-
 	}
 
 }

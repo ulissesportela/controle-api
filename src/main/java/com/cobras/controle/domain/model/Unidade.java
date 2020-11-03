@@ -50,7 +50,6 @@ public class Unidade implements Serializable  {
 	// Codigo da unidade
 	private String codigo;
 	
-
 	@Column(name = "in_est_und_atv")
 	// 1 = Sim 0 = Nao
 	private String ativo;

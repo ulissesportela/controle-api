@@ -23,7 +23,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
 	
-	
 	List<ResponseMessage> mensagemGlobal = new ArrayList<>();
 	
 	@Bean
@@ -58,8 +57,6 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
-	
-	
 	
 	public List<ResponseMessage> getMensagemGlobal() {
 		return new ArrayList<ResponseMessage>() {{
