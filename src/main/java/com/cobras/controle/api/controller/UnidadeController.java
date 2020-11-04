@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
 import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 
 @Api(tags = "Endpoint de Unidades")
 @RestController
@@ -36,12 +36,11 @@ public class UnidadeController {
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
-	@ApiResponse(code = 200, message = "Retornado todas as Unidades")
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> pesquisaParametrizada(
-			@RequestBody(required = false) UnidadePesquisaDTO unidade) {
+	public List<Unidade> pesquisaParametrizada(@Valid
+			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
 		return cadastroComRegraUnidade.buscar(unidade);
 	}
 	
