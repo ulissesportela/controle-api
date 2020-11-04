@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,45 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	@Autowired
 	private UnidadeRepository unidadeRepository;
 	
-	
+	@Override
+	public ResponseEntity<Unidade> buscarEntity(UnidadeConsultaDTO unidade) {
+		Unidade unidade2 = new Unidade();
+		unidade2.setCidade(new Municipio());
+		unidade2.getCidade().setEstado(new Estado());
+		if (unidade == null) {
+			return (ResponseEntity<Unidade>) unidadeRepository.findAll();
+		}
+
+		if (unidade.getCodigo() != null && !unidade.getCodigo().equals("")) {
+			unidade2.setCodigo(unidade.getCodigo());
+		}
+
+		if (unidade.getNome() != null && !unidade.getNome().equals("")) {
+			unidade2.setNome(unidade.getNome());
+		}
+		if (unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
+			unidade2.setResponsavel(unidade.getResponsavel());
+		}
+
+		if (unidade.getAtivo() != null && !unidade.getAtivo().equals("")) {
+			unidade2.setAtivo(unidade.getAtivo());
+		}
+
+		if (unidade.getCidadeId() != null) {
+			unidade2.getCidade().setId(unidade.getCidadeId());
+
+		}
+		
+		if (unidade.getEstadoId() != null) {
+				unidade2.getCidade().getEstado().setId(unidade.getEstadoId());
+
+		}
+		
+		Example<Unidade> example = Example.of(unidade2,
+				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+		return (ResponseEntity<Unidade>) unidadeRepository.findAll(example);
+	}
+
 
 	@Override
 	public List<Unidade> buscar(UnidadeConsultaDTO unidade) {
@@ -184,6 +223,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	public boolean existsById(Long id) {
 		return unidadeRepository.existsById(id);
 	}
+
 
 
 	

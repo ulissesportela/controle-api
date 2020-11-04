@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
-import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -43,6 +42,17 @@ public class UnidadeController {
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
 		return cadastroComRegraUnidade.buscar(unidade);
 	}
+	
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Unidade> pesquisaParametros(@Valid
+			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
+		return cadastroComRegraUnidade.buscarEntity(unidade);
+	}
+	
+	
 	
 	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
