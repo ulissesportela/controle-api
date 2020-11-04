@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -39,7 +40,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> listarTodosPaginado(
-			@RequestBody(required = false) Unidade unidade) {
+			@RequestBody(required = false) UnidadePesquisaDTO unidade) {
 		return cadastroComRegraUnidade.buscar(unidade);
 	}
 	

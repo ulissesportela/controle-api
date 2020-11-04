@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 
 public interface CadastroUnidadeService {
 
@@ -37,11 +38,13 @@ public interface CadastroUnidadeService {
 	
 	Page<Unidade> findAll(Pageable pageable);
 	
-	List<Unidade> buscar(Unidade unidade);
+	//List<Unidade> buscar(Unidade unidade);
 
 	List<Unidade> findByListaParametros(@Param("codigo") String codigo, 
 			@Param("nome") String nome, @Param("responsavel")  String responsavel,
 			@Param("ativo") char ativo, @Param("cidade") Long cidade, @Param("tipo") Integer tipo, Long estadoId);
+
+	List<Unidade> buscar(UnidadePesquisaDTO unidade);
 
 
 	//Page<Unidade> buscar(Unidade unidade, Pageable page);
