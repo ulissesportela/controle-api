@@ -2,6 +2,7 @@ package com.cobras.controle.api.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -49,7 +50,17 @@ public class UnidadeController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> pesquisaParametros(@Valid
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
-		return cadastroComRegraUnidade.buscarEntity(unidade);
+		Optional<Unidade> optionalUnidade = Optional.empty();
+
+		try {
+			List<Unidade> list = cadastroComRegraUnidade.buscar(unidade).stream().collect(Collectors.toList());
+			
+			return new ResponseEntity(list, HttpStatus.CREATED);
+			//return ResponseEntity.ok(list);
+		}catch (Exception e) {
+			return new ResponseEntity( HttpStatus.NOT_FOUND );
+		}
+		
 	}
 	
 	
