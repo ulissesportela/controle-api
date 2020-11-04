@@ -104,6 +104,16 @@ public class UnidadeController {
 		
 	}
 	
+
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar4")
+	@ResponseStatus(HttpStatus.OK)
+	public Unidade pesquisa4(
+			@RequestParam(required = false) String codigo) {
+		return unidadeRepository.findByCodigo(codigo);
+		
+	}
 	
 	
 	
