@@ -116,7 +116,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		if(unidade == null) {
 			return unidadeRepository.findAll();
 		}
-		if(unidade2.getCidade() == null) {
+		if(unidade.getCidade() == null) {
 			unidade2.setCidade(new Municipio());
 		}
 		
@@ -132,13 +132,24 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			}
 		}
 		
+		if(unidade.getCodigo() == null || unidade.getCodigo().equals("")) {
+			unidade2.setCodigo("");
+		}
 		
 		if(unidade.getCodigo() != null) {
 			unidade2.setCodigo(unidade.getCodigo());
 		}
+		
+		if(unidade.getNome() == null || unidade.getNome().equals("")) {
+			unidade2.setNome("");
+		}
+	
 
-		if(unidade.getNome() != null) {
+		if(unidade.getNome() != null && !unidade.getNome().equals("")) {
 			unidade2.setNome(unidade.getNome());
+		}
+		if(unidade.getResponsavel() == null || unidade.getResponsavel().equals("")) {
+			unidade2.setResponsavel("");
 		}
 	
 		if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
@@ -147,6 +158,11 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		if(unidade.getResponsavel() != null && !unidade.getResponsavel().equals("")) {
 			unidade2.setResponsavel(unidade.getResponsavel());
 		}
+		
+		if(unidade.getAtivo() == null || unidade.getAtivo().equals("")) {
+			unidade2.setAtivo("");
+		}
+		
 		if(unidade.getAtivo() != null) {
 			unidade2.setAtivo(unidade.getAtivo());
 		}
