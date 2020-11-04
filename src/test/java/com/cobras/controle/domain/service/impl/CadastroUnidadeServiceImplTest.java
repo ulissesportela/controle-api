@@ -20,6 +20,9 @@ import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.Municipio;
 import com.cobras.controle.domain.model.TipoUnidadeEnum;
 import com.cobras.controle.domain.model.Unidade;
+import com.cobras.controle.domain.model.dto.EstadoPesquisaDTO;
+import com.cobras.controle.domain.model.dto.MunicipioPesquisaDTO;
+import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 
 @ExtendWith(SpringExtension.class)
@@ -38,76 +41,57 @@ class CadastroUnidadeServiceImplTest {
 	@Mock
 	UnidadeRepository unidadeRepository;
 
-//	@Test
-//	void deveBuscarTodasUnidades() {
-//		List<Unidade> listaUnidades = new ArrayList<Unidade>();
-//		listaUnidades = unidadeRepository.findAll();
-//		assertThat(listaUnidades).isNotNull();
-//	}
-//
-//	@Test
-//	void findAllRepository() {
-//		List<Unidade> unidadeLista = unidadeRepository.findAll();
-//		assertThat(unidadeLista).isNotNull();
-//	}
-//	
-//	@Test
-//	void deveBuscarNaService() {
-//		Estado estado = Estado.builder()
-//				.id(27L)
-//				.codigo("53")
-//				.nome("Distrito Federal")
-//				.sigla("DF").build();
-//				
-//		Municipio cidade = Municipio.builder()
-//				.id(5570L)
-//				.codigo("00108")
-//				.codigoCompleto("5300108")
-//				.nome("Brasília").estado(estado).build();
-//		Unidade unidade = Unidade.builder()
-//				.id(71L)
-//				.nome("teste")
-//				.codigo("0022")
-//				.email("email@email.com")
-//				.telefone("123123123")
-//				.ativo("1")
-//				.justificativa(null)
-//				.responsavel(null)
-//				.tipo(TipoUnidadeEnum.PARCEIRA)
-//				.cidade(cidade)
-//				.build();
-//		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
-//		assertEquals(1, unidadeLista.size());
-//	}
-//	
-//	@Test
-//	void deveBuscarNaServiceCamposDePesquisaNulosDevemTrazerTudo() {
-//		Estado estado = Estado.builder()
-//				.id(null)
-//				.codigo(null)
-//				.nome(null)
-//				.sigla(null).build();
-//				
-//		Municipio cidade = Municipio.builder()
-//				.id(null)
-//				.codigo(null)
-//				.codigoCompleto(null)
-//				.nome(null).estado(estado).build();
-//		Unidade unidade = Unidade.builder()
-//				.id(null)
-//				.nome(null)
-//				.codigo(null)
-//				.email(null)
-//				.telefone(null)
-//				.ativo(null)
-//				.justificativa(null)
-//				.responsavel(null)
-//				.tipo(TipoUnidadeEnum.PARCEIRA)
-//				.cidade(cidade)
-//				.build();
-//		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
-//		assertEquals(16, unidadeLista.size());
-//	}
+	@Test
+	void deveBuscarTodasUnidades() {
+		List<Unidade> listaUnidades = new ArrayList<Unidade>();
+		listaUnidades = unidadeRepository.findAll();
+		assertThat(listaUnidades).isNotNull();
+	}
+
+	@Test
+	void findAllRepository() {
+		List<Unidade> unidadeLista = unidadeRepository.findAll();
+		assertThat(unidadeLista).isNotNull();
+	}
+	
+	@Test
+	void deveBuscarNaService() {
+		EstadoPesquisaDTO estado = new EstadoPesquisaDTO();
+		estado.setId(27L);
+				
+		MunicipioPesquisaDTO cidade = new MunicipioPesquisaDTO();
+		cidade.setId(5570L);
+		
+		UnidadePesquisaDTO unidade = new UnidadePesquisaDTO();
+		unidade.setNome("teste");
+		unidade.setCodigo("0022");
+		unidade.setAtivo("1");
+		unidade.setResponsavel(null);
+		unidade.setCidade(cidade);
+		unidade.getCidade().setEstado(estado);
+		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
+		assertEquals(1, unidadeLista.size());
+	}
+	
+	@Test
+	void deveBuscarNaServiceCamposDePesquisaNulosDevemTrazerTudo() {
+		EstadoPesquisaDTO estado = new EstadoPesquisaDTO();
+		estado.setId(null);
+
+				
+		MunicipioPesquisaDTO cidade = new MunicipioPesquisaDTO();
+		cidade.setId(null);
+				
+		UnidadePesquisaDTO unidade = new UnidadePesquisaDTO();
+				unidade.setNome(null);
+				unidade.setCodigo(null);
+				unidade.setAtivo(null);
+				unidade.setResponsavel(null);
+				unidade.setCidade(cidade);
+				unidade.getCidade().setEstado(estado);
+		List<Unidade> unidadeLista = serviceImpl.buscar(unidade);
+		assertEquals(30, unidadeLista.size());
+	}
 	
 	@Test
 	void deveBuscarUnidadePorId() {
@@ -123,14 +107,14 @@ class CadastroUnidadeServiceImplTest {
 
 	@Test
 	void controllerBuscaNaService() {
-		ResponseEntity<Unidade> unidade = unidadeController.buscar(1L);
+		ResponseEntity<Unidade> unidade = unidadeController.buscaPorId(1L);
 		assertThat(unidade).isNotNull();
 	}
 
 	
 	@Test
 	void NaoDevecontrollerBuscaNaService() {
-		ResponseEntity<Unidade> unidade = unidadeController.buscar(12300L);
+		ResponseEntity<Unidade> unidade = unidadeController.buscaPorId(12300L);
 		assertThat(unidade).isNotNull();
 	}
 	
@@ -140,11 +124,11 @@ class CadastroUnidadeServiceImplTest {
 //		Unidade unidade = new Unidade();
 //		unidade.setNome("Nome Unidade");
 //		unidade.setCodigo("444");
-//		unidade.setTipo(TipoUnidade.PARCEIRA);
-//		unidade.setCidade(5570L);
+//		unidade.setTipo(TipoUnidadeEnum.PARCEIRA);
+//		//unidade.setCidade(5570L);
 //		unidade.setEmail("email@email.com");
 //		unidade.setTelefone("123123123");
-//		unidade.setAtivo('1');
+//		unidade.setAtivo("1");
 //		
 //		ResponseEntity<Unidade> unidadeResponse = unidadeController.buscar(1L);
 //		boolean unidadeExistente = unidadeRepository.existsById(1L);
@@ -164,11 +148,11 @@ class CadastroUnidadeServiceImplTest {
 //		Unidade unidade = new Unidade();
 //		unidade.setNome("Nome Unidade");
 //		unidade.setCodigo("222");
-//		unidade.setTipo(TipoUnidade.PARCEIRA);
+//		unidade.setTipo(TipoUnidadeEnum.PARCEIRA);
 //		unidade.setCidade(5570L);
 //		unidade.setEmail("email@email.com");
 //		unidade.setTelefone("123123123");
-//		unidade.setAtivo('1');
+//		unidade.setAtivo("1");
 //		unidadeController.incluir(unidade);
 //		
 //	}
