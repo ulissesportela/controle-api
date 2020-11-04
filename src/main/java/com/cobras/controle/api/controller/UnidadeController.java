@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
+import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +37,9 @@ public class UnidadeController {
 	@Autowired
 	private CadastroUnidadeService cadastroComRegraUnidade;
 
+	@Autowired
+	private UnidadeRepository unidadeRepository;
+	
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" })
@@ -62,6 +67,43 @@ public class UnidadeController {
 		}
 		
 	}
+	
+	
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar2")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Unidade> pesquisa2(
+			@RequestParam(required = false) String codigo,
+			@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String responsavel) {
+		Optional<Unidade> optionalUnidade = Optional.empty();
+
+		try {
+			List<Unidade> list = unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, responsavel);
+			
+			return new ResponseEntity(list, HttpStatus.CREATED);
+			//return ResponseEntity.ok(list);
+		}catch (Exception e) {
+			return new ResponseEntity( HttpStatus.NOT_FOUND );
+		}
+		
+	}
+
+	
+
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar3")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Unidade> pesquisa3(
+			@RequestParam(required = false) String codigo,
+			@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String responsavel) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, responsavel);
+		
+	}
+	
 	
 	
 	
