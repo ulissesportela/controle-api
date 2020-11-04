@@ -90,18 +90,17 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			unidade2.setAtivo(unidade.getAtivo());
 		}
 
-		if (unidade.getCidadeId() != null) {
+		if (unidade.getCidadeId() != null && !unidade.getAtivo().equals("")) {
 			unidade2.getCidade().setId(unidade.getCidadeId());
 
 		}
 		
-		if (unidade.getEstadoId() != null) {
+		if (unidade.getEstadoId() != null && !unidade.getAtivo().equals("")) {
 				unidade2.getCidade().getEstado().setId(unidade.getEstadoId());
 
 		}
 		
-		Example<Unidade> example = Example.of(unidade2,
-				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+		Example<Unidade> example = Example.of(unidade2);
 		return unidadeRepository.findAll(example);
 	}
 	
@@ -141,8 +140,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 				}
 			}
 		}
-		Example<Unidade> example = Example.of(unidade2,
-				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+		Example<Unidade> example = Example.of(unidade2);
 		return unidadeRepository.findAll(example);
 	}
 	
@@ -182,8 +180,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 				}
 			}
 		}
-		Example<Unidade> example = Example.of(unidade2,
-				ExampleMatcher.matching().withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
+		Example<Unidade> example = Example.of(unidade2);
 		return unidadeRepository.findAll(example);
 	}
 	
