@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cobras.controle.domain.model.Estado;
+import com.cobras.controle.domain.model.dto.EstadoDTO;
 import com.cobras.controle.domain.model.dto.MunicipioDTO;
 import com.cobras.controle.domain.service.EstadoService;
 import com.cobras.controle.domain.service.MunicipioService;
@@ -32,8 +32,8 @@ public class EstadoController {
 	@ApiOperation("Listar Todos os Estados")
 	@GetMapping(produces = { "application/json"})
 	@ResponseStatus(HttpStatus.OK)
-	public List<Estado> listar() {
-		return estadoService.findAll();
+	public List<EstadoDTO> listar() {
+		return estadoService.findEstados();
 	}
 
 	@ApiOperation("Listar Todos os municipios a partir do Id do Estado informado")

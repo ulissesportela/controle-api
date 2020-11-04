@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
+import com.cobras.controle.domain.model.dto.UnidadeDTO;
 import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 
 public interface CadastroUnidadeService {
@@ -21,9 +22,9 @@ public interface CadastroUnidadeService {
 	
 	Optional<Unidade> findById(Long id);
 	
-	public Unidade incluir(Unidade unidade);
+	public Unidade incluir(UnidadeDTO unidade);
 	
-	public Unidade alterar(Unidade unidade);
+	public void alterar(UnidadeDTO unidade);
 	
 	boolean existsById(Long id);
 	

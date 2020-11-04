@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
 @Table(name = "und_fdrl")
+@Entity
 public class Estado implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

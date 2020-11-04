@@ -59,23 +59,22 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	}
 	
 	public List<ResponseMessage> getMensagemGlobal() {
-		return new ArrayList<ResponseMessage>() {{
-	        add(new ResponseMessageBuilder()
+		mensagemGlobal.add(new ResponseMessageBuilder()
 	            .code(500)
 	            .message("Erro Interno do Servidor")
 	            .build());
-	        add(new ResponseMessageBuilder()
+		mensagemGlobal.add(new ResponseMessageBuilder()
 	            .code(403)
 	            .message("Usuario Não possui autorização para o Acesso")
 	            .build());
-	        add(new ResponseMessageBuilder()
+		mensagemGlobal.add(new ResponseMessageBuilder()
 	            .code(404)
 	            .message("Página não existe")
 	            .build());
-	        add(new ResponseMessageBuilder()
+		mensagemGlobal.add(new ResponseMessageBuilder()
 	            .code(401)
 	            .message("Requer autenticação para o acesso")
 	            .build());
-	    }};
+		return mensagemGlobal;
 	}
 }

@@ -23,8 +23,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Builder
+@Entity
 @Table(name = "mun")
 public class Municipio implements Serializable {
 

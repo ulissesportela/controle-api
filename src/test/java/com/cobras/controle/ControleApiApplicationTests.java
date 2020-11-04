@@ -17,7 +17,6 @@ import com.cobras.controle.api.controller.UsuarioController;
 @SpringBootTest
 class ControleApiApplicationTests {
 
-	
 	@Autowired
 	private EstadoController estadoController;
 	

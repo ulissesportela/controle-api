@@ -2,9 +2,9 @@ package com.cobras.controle.domain.service;
 
 import java.util.List;
 
-import com.cobras.controle.domain.model.Estado;
+import com.cobras.controle.domain.model.dto.EstadoDTO;
 
 public interface EstadoService {
 
-	List<Estado> findAll();
+	List<EstadoDTO> findEstados();
 }

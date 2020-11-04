@@ -16,6 +16,7 @@ import com.cobras.controle.domain.model.Estado;
 import com.cobras.controle.domain.model.Municipio;
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
+import com.cobras.controle.domain.model.dto.UnidadeDTO;
 import com.cobras.controle.domain.model.dto.UnidadePesquisaDTO;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
@@ -65,7 +66,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 //		return (ResponseEntity<Unidade>) unidadeRepository.findAll(example);
 //	}
 
-
+	@Transactional(readOnly = true)
 	@Override
 	public List<Unidade> buscar(UnidadeConsultaDTO unidade) {
 		Unidade unidade2 = new Unidade();
@@ -104,6 +105,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findAll(example);
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Unidade> buscar(UnidadePesquisaDTO unidade) {
 		Unidade unidade2 = new Unidade();
@@ -144,6 +146,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findAll(example);
 	}
 	
+	@Transactional(readOnly = true)
 	@Override
 	public List<Unidade> buscar(Unidade unidade) {
 		Unidade unidade2 = new Unidade();
@@ -190,26 +193,67 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	public Optional<Unidade> findById(Long id) {
 		return unidadeRepository.findById(id);
 	}
-
-	public Unidade incluir(Unidade unidade) {
+	
+	public Unidade incluir(UnidadeDTO unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
-
+		Unidade unidadePersistencia = converteDTOparaEntidade(unidade);
+		
 		if (unidadeExistente != null) {
 			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
 		}
-		unidade.setTelefone(unidade.getTelefone().replaceAll("[\\s()-]", "").replace(" ", "").trim());
-		return unidadeRepository.save(unidade);
+		
+		return unidadeRepository.save(unidadePersistencia);
 	}
 
-	public Unidade alterar(Unidade unidade) {
-		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
-		if (unidadeExistente != null && !unidadeExistente.getId().equals(unidade.getId())) {
-			throw new NegocioException("Já existe uma unidade cadastrada com esse código");
+	public Unidade converteDTOparaEntidade(UnidadeDTO unidade) {
+		Unidade unidadePersistencia = new Unidade();
+		unidadePersistencia.setCidade(new Municipio());
+		unidadePersistencia.getCidade().setEstado(new Estado());
+		
+		unidadePersistencia.setCodigo(unidade.getCodigo());
+		unidadePersistencia.setAtivo(unidade.getAtivo());
+		unidadePersistencia.setResponsavel(unidade.getResponsavel());
+		unidadePersistencia.setNome(unidade.getNome());
+		unidadePersistencia.setEmail(unidade.getEmail());
+		unidadePersistencia.setJustificativa(unidade.getJustificativa());
+		if(unidade.getTelefone() != null) {
+			unidadePersistencia.setTelefone(unidade.getTelefone()
+				.replaceAll("[\\s()-]", "").replace(" ", "").trim());
+		} else if(unidade.getTelefone() == null) {
+			unidadePersistencia.setTelefone(null);
 		}
-		if (unidade.getTelefone() != null) {
-			unidade.setTelefone(unidade.getTelefone().replaceAll("[\\s()-]", "").replace(" ", "").trim());
-		}
-		return unidadeRepository.save(unidade);
+		unidadePersistencia.setTipo(unidade.getTipo());
+		
+		//Cidade
+		unidadePersistencia.setCidade(unidade.getCidade());
+		
+		unidadePersistencia.getCidade().setId(unidade.getCidade().getId());
+		unidadePersistencia.getCidade().setCodigo(unidade.getCidade().getCodigo());
+		unidadePersistencia.getCidade().setCodigoCompleto(unidade.getCidade().getCodigo());
+		unidadePersistencia.getCidade().setNome(unidade.getCidade().getNome());
+		
+		//Estado
+		unidadePersistencia.getCidade().setEstado(unidade.getCidade().getEstado());
+		unidadePersistencia.getCidade().getEstado().setId(
+				unidade.getCidade().getEstado().getId());
+		unidadePersistencia.getCidade().getEstado().setCodigo(
+				unidade.getCidade().getEstado().getCodigo());
+		unidadePersistencia.getCidade().getEstado().setNome(
+				unidade.getCidade().getEstado().getNome());
+		unidadePersistencia.getCidade().getEstado().setSigla(
+				unidade.getCidade().getEstado().getSigla());
+		return unidadePersistencia;
+	}
+
+	public void alterar(UnidadeDTO unidade) {
+		Unidade unidadePersistencia = converteDTOparaEntidade(unidade);
+		unidadePersistencia.setId(unidade.getId());
+			unidadeRepository.updateUnidade(
+					unidadePersistencia.getId(), unidadePersistencia.getCodigo(),
+					unidadePersistencia.getAtivo(), unidadePersistencia.getResponsavel(),
+					unidadePersistencia.getNome(),
+					unidadePersistencia.getEmail(),unidadePersistencia.getJustificativa());
+
 	}
 
 	@Override
@@ -217,7 +261,6 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findAll();
 	}
 
-	
 	@Override
 	public boolean existsById(Long id) {
 		return unidadeRepository.existsById(id);
@@ -228,9 +271,5 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-	
 
 }

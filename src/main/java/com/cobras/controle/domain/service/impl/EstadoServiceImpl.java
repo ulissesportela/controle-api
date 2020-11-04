@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cobras.controle.domain.model.Estado;
+import com.cobras.controle.domain.model.dto.EstadoDTO;
 import com.cobras.controle.domain.repository.EstadoRepository;
 import com.cobras.controle.domain.service.EstadoService;
 
@@ -16,8 +16,8 @@ public class EstadoServiceImpl implements EstadoService {
 	private EstadoRepository estadoRepository;
 
 	@Override
-	public List<Estado> findAll() {
-		return estadoRepository.findAll();
+	public List<EstadoDTO> findEstados() {
+		return estadoRepository.findEstados();
 	}
 
 }

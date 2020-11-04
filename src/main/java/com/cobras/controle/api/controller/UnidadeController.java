@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cobras.controle.domain.model.Unidade;
 import com.cobras.controle.domain.model.dto.UnidadeConsultaDTO;
+import com.cobras.controle.domain.model.dto.UnidadeDTO;
 import com.cobras.controle.domain.repository.UnidadeRepository;
 import com.cobras.controle.domain.service.CadastroUnidadeService;
 
@@ -55,7 +56,6 @@ public class UnidadeController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Unidade> pesquisaParametros(@Valid
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
-		Optional<Unidade> optionalUnidade = Optional.empty();
 
 		try {
 			List<Unidade> list = cadastroComRegraUnidade.buscar(unidade).stream().collect(Collectors.toList());
@@ -65,9 +65,7 @@ public class UnidadeController {
 		}catch (Exception e) {
 			return new ResponseEntity( HttpStatus.NOT_FOUND );
 		}
-		
 	}
-	
 	
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@GetMapping(produces = { "application/json" },
@@ -78,7 +76,6 @@ public class UnidadeController {
 			@RequestParam(required = false) String nome,
 			@RequestParam(required = false) String responsavel) {
 		Optional<Unidade> optionalUnidade = Optional.empty();
-
 		try {
 			List<Unidade> list = unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, responsavel);
 			
@@ -87,10 +84,7 @@ public class UnidadeController {
 		}catch (Exception e) {
 			return new ResponseEntity( HttpStatus.NOT_FOUND );
 		}
-		
 	}
-
-	
 
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@GetMapping(produces = { "application/json" },
@@ -101,10 +95,8 @@ public class UnidadeController {
 			@RequestParam(required = false) String nome,
 			@RequestParam(required = false) String responsavel) {
 		return unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, responsavel);
-		
 	}
 	
-
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar4")
@@ -112,10 +104,7 @@ public class UnidadeController {
 	public Unidade pesquisa4(
 			@RequestParam(required = false) String codigo) {
 		return unidadeRepository.findByCodigo(codigo);
-		
 	}
-	
-	
 	
 	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
@@ -131,7 +120,7 @@ public class UnidadeController {
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.CREATED)
-	public Unidade incluir(@Valid @RequestBody Unidade unidade) {
+	public Unidade incluir(@RequestBody UnidadeDTO unidade) {
 		return cadastroComRegraUnidade.incluir(unidade);
 	}
 
@@ -139,14 +128,15 @@ public class UnidadeController {
 	@PutMapping(path = "/{unidadeId}", consumes = { "application/json" }, 
 		produces = { "application/json" })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Unidade> alterar(@Valid @PathVariable Long unidadeId, 
-			@RequestBody Unidade unidade) {
+	public ResponseEntity<UnidadeDTO> alterar(@PathVariable Long unidadeId, 
+			@RequestBody UnidadeDTO unidade) {
+		Unidade unidadeRetorno = new Unidade();
 		// Verifica se a Unidade existe
 		if (!cadastroComRegraUnidade.existsById(unidadeId)) {
 			return ResponseEntity.notFound().build();
 		}
 		unidade.setId(unidadeId);
-		unidade = cadastroComRegraUnidade.alterar(unidade);
+		cadastroComRegraUnidade.alterar(unidade);
 		return ResponseEntity.ok(unidade);
 	}
 
