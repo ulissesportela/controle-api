@@ -113,7 +113,18 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	@Transactional(readOnly = true)
 	public List<Unidade> buscar(Unidade unidade) {
 		Unidade unidade2 = new Unidade();
-		unidade2.setCidade(new Municipio());
+		if(unidade2.getCidade() == null) {
+			unidade2.setCidade(new Municipio());
+		}
+		
+		if(unidade.getCidade() != null ) {
+			if(unidade.getCidade().getId() != null) {
+				unidade2.setCidade(unidade.getCidade());
+			}
+			if(unidade.getCidade().getEstado() != null) {
+				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
+			}
+		}
 		unidade2.getCidade().setEstado(new Estado());
 		if(unidade == null) {
 			return unidadeRepository.findAll();
@@ -125,9 +136,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		if(unidade.getNome() != null) {
 			unidade2.setNome(unidade.getNome());
 		}
-		if(unidade.getCidade().getId() != null) {
-			unidade2.setCidade(unidade.getCidade());
-		}
+	
 		if(unidade.getResponsavel() != null && unidade.getResponsavel().equals("")) {
 			unidade2.setResponsavel(null);
 		}
@@ -137,9 +146,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		if(unidade.getAtivo() != null) {
 			unidade2.setAtivo(unidade.getAtivo());
 		}
-		if(unidade.getCidade().getEstado() != null) {
-			unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
-		}
+
 		Example<Unidade> example = Example.of( unidade2, 
 				ExampleMatcher.matching()
 					.withIgnoreCase()
