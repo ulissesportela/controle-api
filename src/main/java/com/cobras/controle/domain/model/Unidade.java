@@ -84,7 +84,6 @@ public class Unidade implements Serializable  {
 
 	@Size(max = 11)
 	@Column(name = "tx_tel_und")
-	@Digits(fraction = 0, integer = 0)
 	// Telefone da Unidade
 	private String telefone;
 	
