@@ -113,6 +113,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 	@Transactional(readOnly = true)
 	public List<Unidade> buscar(Unidade unidade) {
 		Unidade unidade2 = new Unidade();
+		if(unidade == null) {
+			return unidadeRepository.findAll();
+		}
 		if(unidade2.getCidade() == null) {
 			unidade2.setCidade(new Municipio());
 		}
@@ -121,14 +124,15 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			if(unidade.getCidade().getId() != null) {
 				unidade2.setCidade(unidade.getCidade());
 			}
+			if(unidade.getCidade().getEstado() == null) {
+				unidade2.getCidade().setEstado(new Estado());
+			}
 			if(unidade.getCidade().getEstado() != null) {
 				unidade2.getCidade().setEstado(unidade.getCidade().getEstado());
 			}
 		}
-		unidade2.getCidade().setEstado(new Estado());
-		if(unidade == null) {
-			return unidadeRepository.findAll();
-		}
+		
+		
 		if(unidade.getCodigo() != null) {
 			unidade2.setCodigo(unidade.getCodigo());
 		}
