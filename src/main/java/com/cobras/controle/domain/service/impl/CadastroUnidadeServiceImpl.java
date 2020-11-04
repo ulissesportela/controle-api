@@ -224,6 +224,12 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.existsById(id);
 	}
 
+	@Override
+	public ResponseEntity<Unidade> buscarEntity(UnidadeConsultaDTO unidade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	
