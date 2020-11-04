@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
@@ -82,6 +84,7 @@ public class Unidade implements Serializable  {
 
 	@Size(max = 11)
 	@Column(name = "tx_tel_und")
+	@Digits(fraction = 0, integer = 0)
 	// Telefone da Unidade
 	private String telefone;
 	

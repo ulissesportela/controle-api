@@ -115,7 +115,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		Unidade unidade2 = new Unidade();
 		unidade2.setCidade(new Municipio());
 		unidade2.getCidade().setEstado(new Estado());
-		
+		if(unidade == null) {
+			return unidadeRepository.findAll();
+		}
 		if(unidade.getCodigo() != null) {
 			unidade2.setCodigo(unidade.getCodigo());
 		}
