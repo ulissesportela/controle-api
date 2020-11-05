@@ -42,8 +42,7 @@ public class UnidadeController {
 	private UnidadeRepository unidadeRepository;
 	
 	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
-	@GetMapping(produces = { "application/json" },
-			consumes = { "application/json" })
+	@PostMapping(path = "/pesquisa")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Unidade> pesquisaParametrizada(
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
