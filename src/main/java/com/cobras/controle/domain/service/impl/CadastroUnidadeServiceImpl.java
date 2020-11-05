@@ -191,6 +191,7 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		return unidadeRepository.findById(id);
 	}
 	
+	@Override
 	public Unidade incluir(UnidadeDTO unidade) {
 		Unidade unidadeExistente = unidadeRepository.findByCodigo(unidade.getCodigo());
 		Unidade unidadePersistencia = converteDTOparaEntidade(unidade);

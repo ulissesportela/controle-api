@@ -44,7 +44,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" })
 	@ResponseStatus(HttpStatus.OK)
-	public List<Unidade> pesquisaParametrizada(@Valid
+	public List<Unidade> pesquisaParametrizada(
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
 		return cadastroComRegraUnidade.buscar(unidade);
 	}

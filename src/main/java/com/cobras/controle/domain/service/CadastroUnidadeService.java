@@ -29,5 +29,6 @@ public interface CadastroUnidadeService {
 	boolean existsById(Long id);
 	
 	List<Unidade> findAll();
+	
 
 }
