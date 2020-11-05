@@ -30,5 +30,8 @@ public interface CadastroUnidadeService {
 	
 	List<Unidade> findAll();
 	
+	public List<Unidade> queryByExample(Unidade unidade);
+
+	
 
 }

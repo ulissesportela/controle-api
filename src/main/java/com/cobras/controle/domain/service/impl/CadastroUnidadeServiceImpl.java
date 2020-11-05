@@ -183,8 +183,12 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 		Example<Unidade> example = Example.of(unidade2);
 		return unidadeRepository.findAll(example);
 	}
-
 	
+	@Override
+	public List<Unidade> queryByExample(Unidade unidade) {
+		Example<Unidade> example = Example.of(unidade);
+	    return unidadeRepository.findAll(example);
+	}
 	
 	@Override
 	public Optional<Unidade> findById(Long id) {

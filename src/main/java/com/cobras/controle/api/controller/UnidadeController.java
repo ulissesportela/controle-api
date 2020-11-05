@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,6 +54,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar")
 	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	public ResponseEntity<Unidade> pesquisaParametros(
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
 
@@ -70,6 +72,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar2")
 	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	public ResponseEntity<Unidade> pesquisa2(
 			@RequestParam(required = false) String codigo,
 			@RequestParam(required = false) String nome,
@@ -89,6 +92,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar3")
 	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	public List<Unidade> pesquisa3(
 			@RequestParam(required = false) String codigo,
 			@RequestParam(required = false) String nome,
@@ -100,6 +104,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar4")
 	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	public ResponseEntity<List<Unidade>> pesquisa4(
 			@RequestParam(required = false) String codigo,
 			@RequestParam(required = false) String nome,
@@ -108,6 +113,43 @@ public class UnidadeController {
 		return ResponseEntity.ok(unidadeRepository
 				.findByCodigoAndNomeAndResponsavel(codigo,nome,responsavel));
 	}
+	
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar7/{codigo}/{nome}/{responsavel}")
+	@ResponseStatus(HttpStatus.OK)
+	
+	public @ResponseBody List<Unidade> pesquisa7(
+			@RequestParam(required = false) String codigo,
+			@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String responsavel) {
+		return unidadeRepository.findByCodigoAndNomeAndResponsavel(codigo, nome, responsavel);
+	}
+
+	@ApiOperation(value = "Listar Unidades com ordenacao e paginacao")
+	@GetMapping(produces = { "application/json" },
+			consumes = { "application/json" }, path = "/pesquisar6")
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<List<Unidade>> pesquisa6(
+			@RequestParam(required = false) String codigo,
+			@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String responsavel) {
+	
+		return ResponseEntity.ok(unidadeRepository
+				.findByCodigoAndNomeAndResponsavel(codigo,nome,responsavel));
+	}
+	
+	@ApiOperation("Busca a Unidade por ID")
+	@GetMapping(produces = { "application/json" }, path = "/pesquisar5/{ativo}/{nome}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Unidade> buscaPorAtivo(@PathVariable(required = false) String ativo,
+			@PathVariable(required = false) String nome) {
+		Unidade unidade = new Unidade();
+		unidade.setAtivo(ativo);
+		unidade.setNome(nome);
+		return cadastroComRegraUnidade.queryByExample(unidade);
+	}
+	
 	
 	@ApiOperation("Busca a Unidade por ID")
 	@GetMapping(produces = { "application/json" }, path = "/{unidadeId}")
@@ -119,6 +161,11 @@ public class UnidadeController {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	
+	
+	
+	
+	
 
 	@ApiOperation("Incluir uma Unidade")
 	@PostMapping(produces = { "application/json" }, consumes = { "application/json" })

@@ -25,6 +25,8 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>,
 	List<Unidade> findByNomeContaining(String nome);
 
 	Unidade findByCodigo(String codigo);
+	
+	Optional<Unidade> findByResponsavel(String responsavel);
 
 	Unidade findByEmail(String email);
 
@@ -44,6 +46,11 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>,
 			+ " WHERE u.id = :id")
 	void updateUnidade(Long id, String codigo, String ativo, String responsavel, 
 			String nome, String email, String justificativa);
+
+	List<Unidade> findByAtivo(String responsavel);
+
+	List<Unidade> findByAtivoAndNome(String ativo, String nome);
+
 
 
 }
