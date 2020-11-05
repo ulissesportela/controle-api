@@ -93,12 +93,9 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 
 		if (unidade.getCidadeId() != null && !unidade.getAtivo().equals("")) {
 			unidade2.getCidade().setId(unidade.getCidadeId());
-
 		}
-		
 		if (unidade.getEstadoId() != null && !unidade.getAtivo().equals("")) {
-				unidade2.getCidade().getEstado().setId(unidade.getEstadoId());
-
+			unidade2.getCidade().getEstado().setId(unidade.getEstadoId());
 		}
 		
 		Example<Unidade> example = Example.of(unidade2);

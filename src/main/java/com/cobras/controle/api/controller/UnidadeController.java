@@ -32,7 +32,6 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "Endpoint de Unidades")
 @RestController
 @RequestMapping("/unidades")
-@CrossOrigin(origins = "*", maxAge = 86400, allowedHeaders = "*")
 public class UnidadeController {
 
 	@Autowired
@@ -54,7 +53,7 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Unidade> pesquisaParametros(@Valid
+	public ResponseEntity<Unidade> pesquisaParametros(
 			@RequestBody(required = false) UnidadeConsultaDTO unidade) {
 
 		try {
@@ -101,9 +100,13 @@ public class UnidadeController {
 	@GetMapping(produces = { "application/json" },
 			consumes = { "application/json" }, path = "/pesquisar4")
 	@ResponseStatus(HttpStatus.OK)
-	public Unidade pesquisa4(
-			@RequestParam(required = false) String codigo) {
-		return unidadeRepository.findByCodigo(codigo);
+	public ResponseEntity<List<Unidade>> pesquisa4(
+			@RequestParam(required = false) String codigo,
+			@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String responsavel) {
+	
+		return ResponseEntity.ok(unidadeRepository
+				.findByCodigoAndNomeAndResponsavel(codigo,nome,responsavel));
 	}
 	
 	@ApiOperation("Busca a Unidade por ID")
