@@ -76,6 +76,8 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			return unidadeRepository.findAll();
 		}
 
+		
+		
 		if (unidade.getCodigo() != null && !unidade.getCodigo().equals("")) {
 			unidade2.setCodigo(unidade.getCodigo());
 		}
@@ -91,12 +93,15 @@ public class CadastroUnidadeServiceImpl implements CadastroUnidadeService {
 			unidade2.setAtivo(unidade.getAtivo());
 		}
 
-		if (unidade.getCidadeId() != null && !unidade.getAtivo().equals("")) {
+		if (unidade.getCidadeId() == null) {
+		 unidade2.getCidade().setId(null);
+		
+		} else if (unidade.getCidadeId() != null || !unidade.getAtivo().equals("")) {
 			unidade2.getCidade().setId(unidade.getCidadeId());
+		} if (unidade.getEstadoId() == null) {
+			unidade2.getCidade().getEstado().setId(null);
 		}
-		if (unidade.getEstadoId() != null && !unidade.getAtivo().equals("")) {
-			unidade2.getCidade().getEstado().setId(unidade.getEstadoId());
-		}
+
 		
 		Example<Unidade> example = Example.of(unidade2);
 		return unidadeRepository.findAll(example);
